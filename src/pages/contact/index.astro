@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../data/site";
+---
+<BaseLayout
+  title="Contact - Valade et associés"
+  description="Coordonnées de Valade et associés, huissiers de justice à Montréal: adresse, téléphone, télécopieur, courriel et heures d’ouverture."
+>
+  <section class="section alt">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h1>Pour nous joindre</h1>
+        <p class="lead">Notre équipe est disponible du lundi au vendredi pour vos demandes de signification, d’exécution, de constat et de services connexes.</p>
+      </div>
+      <div class="card">
+        <p><strong>{site.legalName}</strong></p>
+        <p>{site.address.street}<br />{site.address.city}, QC {site.address.postalCode}</p>
+        <p>{site.hours}</p>
+        <p>Tél. : <a href="tel:+15148422345">{site.phone}</a><br />Sans frais : <a href="tel:+18888759499">{site.tollFree}</a><br />Fax : {site.fax}</p>
+        <p><a href={`mailto:${site.documentsEmail}`}>{site.documentsEmail}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>Envoyez votre message</h2>
+        <p>La gestion des formulaires fera partie de l’étape 2. Pour cette première version statique, les champs sont présents pour cadrer le design, mais l’envoi est désactivé.</p>
+      </div>
+      <form class="card disabled-form" aria-disabled="true">
+        <label>Nom<br /><input type="text" disabled /></label>
+        <label>Courriel<br /><input type="email" disabled /></label>
+        <label>Message<br /><textarea rows="5" disabled></textarea></label>
+        <button class="button blue" type="button" disabled>Envoi désactivé</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  form { display: grid; gap: 16px; }
+  input, textarea {
+    width: 100%;
+    margin-top: 6px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 12px;
+    font: inherit;
+    background: #f5f6f8;
+  }
+  button:disabled { opacity: 0.65; }
+</style>

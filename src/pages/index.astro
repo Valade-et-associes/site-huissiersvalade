@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { services, site } from "../data/site";
+---
+<BaseLayout
+  title="Accueil - Valade et associés"
+  description="Huissiers de justice du Grand Montréal au service des cabinets d’avocats, propriétaires, particuliers, notaires et organisations québécoises depuis 1989."
+>
+  <section class="hero">
+    <div class="hero-panel">
+      <p class="eyebrow">Huissiers de justice du Grand Montréal</p>
+      <h1>Valade et associés</h1>
+      <p class="lead">Signification, exécution de jugement, expulsion de locataires, constats et services connexes menés avec rigueur, impartialité et professionnalisme.</p>
+      <div class="hero-actions">
+        <a class="button" href="/contact/">Contactez-nous</a>
+        <a class="button secondary" href="/services-et-tarifs/">Voir nos services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Depuis 1989</p>
+        <h2>Vos mandats, notre mission</h2>
+        <p class="lead">Une équipe solide d’huissiers de justice orientée vers le progrès, la communication et la résolution efficace des enjeux juridiques.</p>
+      </div>
+      <div>
+        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, notre rôle est d’analyser, d’agir et de résoudre.</p>
+        <p>Notre mission est d’offrir les meilleurs services d’huissiers tout en respectant à la lettre les cadres législatifs et réglementaires régissant la profession.</p>
+        <p>Établie dans le Vieux-Montréal, la firme accompagne les cabinets d’avocats, propriétaires, gestionnaires d’immeubles, particuliers, notaires, contentieux et organisations québécoises.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <p class="eyebrow">Services</p>
+      <h2>Une gamme complète pour entreprises et particuliers</h2>
+      <div class="grid four">
+        {services.map((service) => (
+          <article class="card">
+            <h3>{service.title}</h3>
+            <p>{service.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-band" aria-label="Montréal, territoire desservi"></section>
+
+  <section class="section">
+    <div class="wrap grid three">
+      <div class="card">
+        <h3>JuriWeb</h3>
+        <p>Accédez à vos procès-verbaux et dossiers de facturation en toute sécurité.</p>
+        <a class="button blue" href={site.juriweb}>Se connecter</a>
+      </div>
+      <div class="card">
+        <h3>Communication et vulgarisation</h3>
+        <p>Notre équipe répond à vos questions procédurales, à vos besoins de service et à vos questions de tarification.</p>
+      </div>
+      <div class="card">
+        <h3>Documents TAL en main?</h3>
+        <p>Nous pouvons vous orienter rapidement pour la signification ou l’exécution de vos documents.</p>
+        <a class="button blue" href="/contact/">Nous joindre</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

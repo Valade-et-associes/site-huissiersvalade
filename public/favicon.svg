@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Valade">
+  <rect width="64" height="64" rx="10" fill="#0f3557"/>
+  <path d="M15 47h34M24 18h16M32 18v29M20 27h24" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M18 27l-7 14h14L18 27Zm28 0l-7 14h14L46 27Z" fill="none" stroke="#d6b36a" stroke-width="3" stroke-linejoin="round"/>
+</svg>

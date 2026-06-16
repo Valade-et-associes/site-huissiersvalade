@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../data/site";
+---
+<BaseLayout
+  title="Formulaires - Valade et associés"
+  description="Téléchargez les bordereaux d’instructions de Valade et associés pour l’exécution de jugement et la saisie avant jugement."
+>
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Formulaires</p>
+      <h1>Bordereaux d’instructions</h1>
+      <p class="lead">Les documents téléchargeables seront intégrés comme fichiers statiques à partir des versions finales récupérées de WordPress.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid two">
+      <article class="card">
+        <h3>Bordereau d’instructions : Exécution de jugement</h3>
+        <p>Formulaire destiné aux mandats d’exécution de jugement.</p>
+        <a class="button blue" href="mailto:avex@valade.net?subject=Bordereau%20d'instructions%20-%20Ex%C3%A9cution%20de%20jugement">Demander le formulaire</a>
+      </article>
+      <article class="card">
+        <h3>Bordereau d’instructions : Saisie avant jugement</h3>
+        <p>Formulaire destiné aux mandats de saisie avant jugement.</p>
+        <a class="button blue" href="mailto:avex@valade.net?subject=Bordereau%20d'instructions%20-%20Saisie%20avant%20jugement">Demander le formulaire</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap narrow">
+      <h2>Attention</h2>
+      <p>Afin de pouvoir compléter le formulaire d’exécution de jugement, assurez-vous d’avoir récolté le maximum d’informations concernant les actifs de votre débiteur, son adresse résidentielle ou professionnelle, et toute autre information utile.</p>
+      <p>Veuillez joindre une copie du jugement ou de l’acte de procédure ayant force exécutoire, puis transmettre la documentation à <a href={`mailto:${site.executionEmail}`}>{site.executionEmail}</a>.</p>
+      <p>Un dépôt sera exigé pour procéder à l’exécution de votre jugement.</p>
+    </div>
+  </section>
+</BaseLayout>
