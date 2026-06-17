@@ -1,30 +1,254 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { businessServices, tariffs } from "../../data/site";
+import { assets, tariffs } from "../../data/site";
+
+const businessServices = [
+  {
+    title: "Signification",
+    text: "La signification est un acte par lequel l'huissier de justice remet un acte de procédure ou tout autre document à son destinataire.",
+    groupTitle: "Quelques exemples de documents fréquemment signifiés:",
+    items: [
+      "Demande introductive d'instance",
+      "Citation à comparaître",
+      "Mise en demeure",
+      "Avis d'exécution",
+      "Demande en divorce",
+      "Demande en opposition à la saisie",
+      "Avis de renouvellement de bail"
+    ]
+  },
+  {
+    title: "Exécution",
+    text: "L'exécution des jugements est un processus par lequel l'huissier de justice entreprend une série d'actes dans le but de satisfaire les conclusions d'un jugement, et ce, de façon impartiale.",
+    groupTitle: "Quelques exemples de mesures d'exécution de jugement:",
+    items: [
+      "Saisie de biens meubles",
+      "Saisie de biens immeubles",
+      "Saisie de comptes bancaires",
+      "Saisie de revenus",
+      "Expulsion de locataires",
+      "Saisie de véhicules routiers",
+      "Saisie de valeurs mobilières"
+    ]
+  },
+  {
+    title: "Constat",
+    text: "Le constat d'huissier de justice est un document dans lequel l'huissier inscrit des faits récoltés à la suite de constatations purement matérielles, de manière objective en utilisant uniquement ses sens.",
+    groupTitle: "Quelques exemples de constats d'huissiers de justice:",
+    items: [
+      "Constat sur l'état des lieux loués",
+      "Constat à l'égard de bruits ou d'odeurs provenant du voisinage",
+      "Constat « web » sur les réseaux sociaux ou divers sites web",
+      "Constater le refus de coopération d'une personne dans une transaction",
+      "Constat concernant la prise de l'inventaire de biens",
+      "Constat des paroles ou gestes d'une personne déterminée"
+    ]
+  },
+  {
+    title: "Services connexes",
+    text: "Afin de répondre adéquatement à l'ensemble des besoins de nos clients, nous offrons également les services professionnels suivants.",
+    items: [
+      "Service de cour complet",
+      "Émission de procédures",
+      "Déposition de procédures",
+      "Cueillette des procédures à vos bureaux",
+      "Retour des procédures à vos bureaux",
+      "Saisie avant jugement",
+      "Vente sous contrôle de justice",
+      "Transfert de dossiers à notre réseau de correspondants",
+      "Perception à l'amiable des créances",
+      "Remise volontaire de biens",
+      "Interrogatoire après jugement",
+      "Mandats d'amener ou d'emprisonnement",
+      "Administration des saisies de revenus",
+      "Entente de paiement échelonné",
+      "Perquisition / Anton Piller",
+      "Immobilisation de véhicules (sabot de Denver)"
+    ]
+  }
+];
+
+const personalServices = [
+  {
+    title: "Signification",
+    sections: [
+      {
+        heading: "Quoi ?",
+        paragraphs: [
+          "La signification est un acte par lequel l'huissier de justice remet un acte de procédure ou tout autre document à son destinataire.",
+          "Suite à la signification, l'huissier de justice rédige un procès-verbal de signification. Ce document constitue une preuve de haute qualité de la remise du document au destinataire.",
+          "Par exemple, dans le contexte de la Régie du logement et des Petites créances, l'huissier de justice peut signifier, entre autres:"
+        ],
+        items: [
+          "Une mise en demeure",
+          "Un avis d'exécution",
+          "Un avis de renouvellement de bail",
+          "Une demande relative au non-paiement de loyer",
+          "Une décision de la Régie du logement",
+          "Un jugement des Petites créances",
+          "Un avis d'audience"
+        ]
+      },
+      {
+        heading: "Comment ?",
+        paragraphs: [
+          "Première étape: récoltez les informations suivantes:"
+        ],
+        items: [
+          "Le type de procédure à signifier",
+          "L'adresse exacte à laquelle la signification doit être faite",
+          "Le lieu de la signification est un domicile ou une place d'affaires?",
+          "Le délai dans lequel vous voulez que la signification soit faite."
+        ]
+      },
+      {
+        paragraphs: [
+          "Seconde étape: communiquez avec nous pour connaître le prix et la procédure en quelques instants!"
+        ],
+        items: ["Par téléphone: 514-842-2345", "Par courriel: info@valade.net"]
+      },
+      {
+        heading: "Pour qui ?",
+        items: [
+          "Propriétaire d'immeuble(s)",
+          "Locataire",
+          "Avocat, notaire",
+          "Toute personne qui veut faire signifier un document",
+          "Cabinet d'avocat à l'extérieur du Québec"
+        ]
+      }
+    ]
+  },
+  {
+    title: "Exécution",
+    sections: [
+      {
+        heading: "Quoi ?",
+        paragraphs: [
+          "Processus par lequel l'huissier de justice, après avoir reçu vos instructions, entreprend une série d'actes dans le but de satisfaire les conclusions d'une décision de justice.",
+          "Si vous avez un jugement entre les mains, voici ce que vous pourriez nous demander d'exécuter à l'encontre de votre débiteur:"
+        ],
+        items: [
+          "Saisir ses biens meubles",
+          "Saisir ses comptes bancaires",
+          "Saisir ses revenus",
+          "L'expulser de votre logement",
+          "Saisir son véhicule routier"
+        ]
+      },
+      {
+        heading: "Comment ?",
+        paragraphs: [
+          "Première étape: récoltez le maximum d'informations à propos de votre débiteur. Par exemple:"
+        ],
+        items: [
+          "Adresse de son domicile",
+          "Lieu de travail",
+          "Adresse de son institution financière",
+          "Toute information concernant ses actifs"
+        ]
+      },
+      {
+        paragraphs: [
+          "Seconde étape: communiquez avec nous pour connaître le prix et la procédure en quelques instants!"
+        ],
+        items: ["Par téléphone: 514-842-2345", "Par courriel: info@valade.net"]
+      },
+      {
+        heading: "Pour qui ?",
+        items: [
+          "Propriétaire d'immeuble(s)",
+          "Avocat, notaire",
+          "Toute personne ayant un jugement à exécuter",
+          "Cabinet d'avocat à l'extérieur du Québec"
+        ]
+      }
+    ]
+  },
+  {
+    title: "Constat",
+    sections: [
+      {
+        heading: "Quoi ?",
+        paragraphs: [
+          "Le constat d'huissier de justice est un document dans lequel l'huissier inscrit des faits récoltés à la suite de constatations purement matérielles, de manière objective en utilisant ses sens.",
+          "Ce document constitue une preuve de haute qualité de son contenu, permettant de protéger vos droits, de prévenir les conflits et de vous défendre devant les tribunaux.",
+          "Voici quelques exemples de constats d'huissier de justice:"
+        ],
+        items: [
+          "Constater l'état des lieux loués au début ou à la fin d'un bail",
+          "Constater les dégâts et les bris causés dans un appartement",
+          "Constater les bruits, les odeurs ou la pollution sonore provenant du voisinage",
+          "Constater les propos intimidants sur les médias sociaux",
+          "Dresser l'inventaire des biens appartenant à une succession"
+        ]
+      },
+      {
+        heading: "Comment ?",
+        paragraphs: [
+          "Communiquez avec nous pour discuter plus amplement de votre constat!"
+        ],
+        items: ["Par téléphone: 514-842-2345", "Par courriel: info@valade.net"]
+      },
+      {
+        heading: "Pour qui ?",
+        items: [
+          "Propriétaire d'immeuble(s)",
+          "Avocat, notaire",
+          "Toute personne ayant besoin d'un constat."
+        ]
+      }
+    ]
+  },
+  {
+    title: "Services connexes",
+    sections: [
+      {
+        heading: "Quoi ?",
+        paragraphs: [
+          "Afin de répondre adéquatement à l'ensemble de vos besoins, nous vous offrons également les services professionnels suivants:"
+        ],
+        items: [
+          "Émission d'actes de procédure",
+          "Déposition d'actes de procédure",
+          "Transfert de dossiers à notre réseau de correspondants",
+          "Perception à l'amiable des créances",
+          "Remises volontaire de biens",
+          "Vente sous contrôle de justice",
+          "Prise d'inventaire complet"
+        ]
+      }
+    ]
+  }
+];
 ---
 <BaseLayout
   title="Services et tarifs - Valade et associés"
-  description="Services d’huissiers pour entreprises et particuliers: signification, exécution de jugement, constats, services connexes et tarification."
+  description="Services d'huissiers pour entreprises et particuliers: signification, exécution de jugement, constats, services connexes et tarification."
 >
-  <section class="section alt">
-    <div class="wrap narrow">
-      <p class="eyebrow">Services et tarifs</p>
-      <h1>Des services d’huissiers pour tous</h1>
+  <section class="services-intro">
+    <div class="intro-image" style={`background-image: url(${assets.heroDocument});`}></div>
+    <div class="wrap narrow intro-content">
+      <h1>Des services d'huissiers pour tous</h1>
       <p class="lead">Chez Valade et associés, huissiers de justice, nous vous proposons une gamme complète de services pour tous les types de besoins.</p>
+      <div class="service-jumps" aria-label="Accès rapide aux domaines de services">
+        <a class="jump-button blue" href="#services-entreprises">Entreprise</a>
+        <a class="jump-button gold" href="#services-particuliers">Particulier</a>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section id="services-entreprises" class="section alt service-domain">
     <div class="wrap">
-      <p class="eyebrow">Entreprise</p>
-      <h2>Services aux entreprises</h2>
-      <div class="grid two">
+      <p class="eyebrow">Services aux entreprises</p>
+      <div class="services-board">
         {businessServices.map((service) => (
-          <article class="card">
-            <h3>{service.title}</h3>
+          <article class="service-card">
+            <h2>{service.title}</h2>
             <p>{service.text}</p>
-            <ul class="list">
-              {service.examples.map((item) => <li>{item}</li>)}
+            {service.groupTitle && <h3>{service.groupTitle}</h3>}
+            <ul class="service-list">
+              {service.items.map((item) => <li>{item}</li>)}
             </ul>
           </article>
         ))}
@@ -32,26 +256,26 @@ import { businessServices, tariffs } from "../../data/site";
     </div>
   </section>
 
-  <section class="section alt">
+  <section id="services-particuliers" class="section alt service-domain personal-domain">
     <div class="wrap">
-      <p class="eyebrow">Particulier</p>
-      <h2>Services aux particuliers</h2>
-      <div class="grid three">
-        <article class="card">
-          <h3>Signification</h3>
-          <p>La signification permet de remettre officiellement un document à son destinataire. Suite à la signification, l’huissier rédige un procès-verbal constituant une preuve de haute qualité.</p>
-          <p>Exemples: mise en demeure, avis d’exécution, avis de renouvellement de bail, demande relative au non-paiement de loyer, décision du Tribunal administratif du logement ou jugement des Petites créances.</p>
-        </article>
-        <article class="card">
-          <h3>Exécution</h3>
-          <p>Une décision ou un jugement peut être exécuté par huissier lorsque le débiteur refuse de payer volontairement les sommes dues.</p>
-          <p>Avant de mandater la firme, récoltez le maximum d’informations sur les actifs, l’adresse résidentielle ou professionnelle du débiteur, ses revenus et toute information utile.</p>
-        </article>
-        <article class="card">
-          <h3>Constat</h3>
-          <p>Un constat d’huissier permet de protéger vos droits, prévenir les conflits, conserver une preuve et documenter une situation de manière impartiale.</p>
-          <p>Il peut viser un logement, des bruits ou odeurs, un site web, des réseaux sociaux, l’état d’un bien ou les paroles et gestes d’une personne.</p>
-        </article>
+      <p class="eyebrow">Services aux particuliers</p>
+      <div class="services-board">
+        {personalServices.map((service) => (
+          <article class="service-card">
+            <h2>{service.title}</h2>
+            {service.sections.map((section) => (
+              <div class="service-block">
+                {section.heading && <h3>{section.heading}</h3>}
+                {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+                {section.items && (
+                  <ul class="service-list">
+                    {section.items.map((item) => <li>{item}</li>)}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -63,7 +287,7 @@ import { businessServices, tariffs } from "../../data/site";
         <h2>Des honoraires encadrés</h2>
       </div>
       <div>
-        <p>Les services professionnels rendus par les huissiers de justice sont tarifés par le Tarif d’honoraires des huissiers de justice. Pour les services connexes, les huissiers peuvent également convenir d’une tarification extrajudiciaire en vertu du Tarif d’honoraires professionnels.</p>
+        <p>Les services professionnels rendus par les huissiers de justice sont tarifés par le Tarif d'honoraires des huissiers de justice. Pour les services connexes, les huissiers peuvent également convenir d'une tarification extrajudiciaire en vertu du Tarif d'honoraires professionnels.</p>
         <div class="grid two">
           {tariffs.map((tariff) => <a class="card" href={tariff.href}><h3>{tariff.title}</h3><p>Télécharger le PDF</p></a>)}
         </div>
@@ -71,3 +295,166 @@ import { businessServices, tariffs } from "../../data/site";
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .services-intro {
+    background: var(--white);
+    text-align: center;
+  }
+
+  .intro-image {
+    min-height: 118px;
+    background-position: center;
+    background-size: cover;
+    opacity: .58;
+  }
+
+  .intro-content {
+    padding: clamp(56px, 7vw, 74px) 18px;
+  }
+
+  .intro-content h1 {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(28px, 4vw, 36px);
+    text-transform: uppercase;
+  }
+
+  .intro-content .lead {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .service-jumps {
+    display: flex;
+    justify-content: center;
+    gap: clamp(18px, 6vw, 84px);
+    flex-wrap: wrap;
+    margin-top: 34px;
+  }
+
+  .jump-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    min-height: 50px;
+    padding: 12px 20px;
+    border-radius: 0;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .jump-button.blue {
+    background: var(--blue);
+  }
+
+  .jump-button.gold {
+    background: #e0b529;
+    color: #fff;
+  }
+
+  .service-domain {
+    scroll-margin-top: 110px;
+  }
+
+  .service-domain .eyebrow {
+    color: #969ca8;
+  }
+
+  .personal-domain .service-card h2 {
+    color: #dba917;
+    border-color: #dba917;
+  }
+
+  .services-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(22px, 4vw, 44px);
+    padding: clamp(24px, 4vw, 44px);
+    background: #fff;
+  }
+
+  .service-card {
+    min-width: 0;
+  }
+
+  .service-card h2 {
+    width: fit-content;
+    margin: 0 auto 22px;
+    padding: 14px 10px;
+    border-top: 1px solid var(--blue);
+    border-bottom: 1px solid var(--blue);
+    color: var(--blue);
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .service-card h3 {
+    margin: 20px 0 10px;
+    color: var(--blue);
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .personal-domain .service-card h3 {
+    color: var(--ink);
+  }
+
+  .service-card p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .service-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .service-list li {
+    position: relative;
+    margin: 9px 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .service-list li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--blue);
+    font-weight: 800;
+  }
+
+  .personal-domain .service-list li::before {
+    color: #dba917;
+  }
+
+  .service-block + .service-block {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 1100px) {
+    .services-board {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .services-board {
+      grid-template-columns: 1fr;
+      padding: 22px;
+    }
+
+    .jump-button {
+      width: 100%;
+      max-width: 260px;
+    }
+  }
+</style>
