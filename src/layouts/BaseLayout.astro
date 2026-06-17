@@ -6,9 +6,10 @@ interface Props {
   description: string;
   canonical?: string;
   image?: string;
+  robots?: string;
 }
 
-const { title, description, canonical = Astro.url.pathname, image = assets.logoLight } = Astro.props;
+const { title, description, canonical = Astro.url.pathname, image = assets.logoLight, robots = "index, follow" } = Astro.props;
 const canonicalUrl = new URL(canonical, site.url).toString();
 const imageUrl = new URL(image, site.url).toString();
 const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
@@ -21,7 +22,7 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_CA" />
     <meta property="og:site_name" content={site.name} />

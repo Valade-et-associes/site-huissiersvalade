@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { vehicles } from "../../../data/site";
+import { formatVehicleTitle, vehicles } from "../../../data/vehicles";
 ---
 <BaseLayout title="Véhicule Francois - Valade et associés" description="Catégorie de véhicules récupérée du site original de Valade et associés.">
   <section class="section alt">
@@ -12,7 +12,7 @@ import { vehicles } from "../../../data/site";
   </section>
   <section class="section">
     <div class="wrap grid three">
-      {vehicles.map((vehicle) => <article class="card"><h3><a href={`/produit/${vehicle.slug}/`}>{vehicle.title}</a></h3></article>)}
+      {vehicles.map((vehicle) => <article class="card"><h3><a href={`/produit/${vehicle.slug}/`}>{formatVehicleTitle(vehicle)}</a></h3></article>)}
     </div>
   </section>
 </BaseLayout>

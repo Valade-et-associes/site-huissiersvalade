@@ -1,16 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { vehicles } from "../../data/site";
+import { formatVehicleTitle, vehicles } from "../../data/vehicles";
 ---
 <BaseLayout
-  title="Vente de véhicules – Opération sabot de Denver - Valade et associés"
-  description="Véhicules faisant l’objet d’une vente sous contrôle de justice de gré à gré dans le cadre de l’opération sabot de Denver."
+  title="Vente de véhicules - Opération sabot de Denver - Valade et associés"
+  description="Véhicules faisant l'objet d'une vente sous contrôle de justice de gré à gré dans le cadre de l'opération sabot de Denver."
 >
-  <section class="section alt">
+  <section id="offre" class="section alt">
     <div class="wrap narrow">
       <p class="eyebrow">Ventes sabots</p>
-      <h1>Vente de véhicules – Opération sabot de Denver</h1>
-      <p class="lead">Les véhicules listés et décrits ci-dessous font l’objet d’une vente sous contrôle de justice de gré à gré.</p>
+      <h1>Vente de véhicules - Opération sabot de Denver</h1>
+      <p class="lead">Les véhicules listés et décrits ci-dessous font l'objet d'une vente sous contrôle de justice de gré à gré.</p>
     </div>
   </section>
 
@@ -18,30 +18,75 @@ import { vehicles } from "../../data/site";
     <div class="wrap split">
       <div>
         <h2>Instructions aux acheteurs potentiels</h2>
-        <p>Si vous souhaitez participer à la vente d’un ou de plusieurs véhicules, vous devez utiliser le formulaire Web et suivre les instructions correspondantes. Ce formulaire sera reconstruit à l’étape 2.</p>
+        <p>Si vous souhaitez participer à la vente d'un ou de plusieurs véhicules, vous devez utiliser le formulaire d'offre ci-dessous et suivre les instructions correspondantes.</p>
         <p>Les véhicules sont entreposés à la fourrière de Remorquage Météor, située au 9405, boulevard St-Michel, Montréal (Québec) H1Z 4G9.</p>
         <p>Les acheteurs potentiels peuvent se rendre au site les mercredis précédant la vente sous contrôle de justice, de 13 h à 15 h, afin de voir le véhicule mis en vente.</p>
       </div>
       <div class="notice">
         <h3>Conditions de vente</h3>
-        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Elles sont effectuées sans aucune garantie légale, aux risques et périls de l’acheteur.</p>
-        <p>L’adjudicataire retenu doit transmettre le paiement dans l’heure suivant l’adjudication, par virement Interac à virements@valade.net.</p>
-        <p>Le véhicule doit être récupéré la journée même avant 16 h, autrement des frais quotidiens d’entreposage peuvent s’appliquer.</p>
+        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Elles sont effectuées sans aucune garantie légale, aux risques et périls de l'acheteur.</p>
+        <p>L'adjudicataire retenu doit transmettre le paiement dans l'heure suivant l'adjudication, par virement Interac à virements@valade.net.</p>
+        <p>Le véhicule doit être récupéré la journée même avant 16 h, autrement des frais quotidiens d'entreposage peuvent s'appliquer.</p>
       </div>
     </div>
   </section>
 
   <section class="section alt">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Formulaire d'offre</p>
+        <h2>Faire une offre sur un véhicule</h2>
+        <p>Choisissez le véhicule visé, indiquez vos coordonnées et le montant de votre offre. L'offre sera transmise automatiquement à l'huissier responsable du dossier.</p>
+      </div>
+      <form class="offer-form" method="POST" action="/.netlify/functions/submit-offer">
+        <p class="hidden-field"><label>Ne pas remplir ce champ: <input name="bot-field" /></label></p>
+        <label>
+          <span class="field-title">Véhicule <span class="required">*</span></span>
+          <select name="vehicleSlug" required>
+            <option value="">Sélectionnez un véhicule</option>
+            {vehicles.map((vehicle) => (
+              <option value={vehicle.slug}>{formatVehicleTitle(vehicle)}</option>
+            ))}
+          </select>
+        </label>
+        <label><span class="field-title">Nom de l'entreprise</span><input type="text" name="company" autocomplete="organization" /></label>
+        <div class="form-grid">
+          <label><span class="field-title">Prénom <span class="required">*</span></span><input type="text" name="firstName" autocomplete="given-name" required /></label>
+          <label><span class="field-title">Nom <span class="required">*</span></span><input type="text" name="lastName" autocomplete="family-name" required /></label>
+        </div>
+        <div class="form-grid">
+          <label><span class="field-title">Courriel <span class="required">*</span></span><input type="email" name="email" autocomplete="email" required /></label>
+          <label><span class="field-title">Téléphone <span class="required">*</span></span><input type="tel" name="phone" autocomplete="tel" required /></label>
+        </div>
+        <label><span class="field-title">Adresse <span class="required">*</span></span><input type="text" name="address" autocomplete="address-line1" required /></label>
+        <div class="form-grid">
+          <label><span class="field-title">Ville <span class="required">*</span></span><input type="text" name="city" autocomplete="address-level2" required /></label>
+          <label><span class="field-title">Province <span class="required">*</span></span><input type="text" name="province" autocomplete="address-level1" required /></label>
+        </div>
+        <div class="form-grid">
+          <label><span class="field-title">Code postal <span class="required">*</span></span><input type="text" name="postalCode" autocomplete="postal-code" required /></label>
+          <label><span class="field-title">Pays <span class="required">*</span></span><input type="text" name="country" autocomplete="country-name" value="Canada" required /></label>
+        </div>
+        <div class="form-grid">
+          <label><span class="field-title">Offre (en dollars) <span class="required">*</span></span><input type="number" name="amount" min="1" step="1" required /></label>
+        </div>
+        <button class="button" type="submit">Envoyer l'offre</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <p class="eyebrow">Nos véhicules</p>
-      <h2>Liste récupérée du site original</h2>
+      <h2>Véhicules en vente</h2>
       <div class="grid three">
         {vehicles.map((vehicle) => (
           <article class="card media-card flush">
-            <a href={`/produit/${vehicle.slug}/`}><img src={vehicle.image} alt={vehicle.title} loading="lazy" /></a>
+            <a href={`/produit/${vehicle.slug}/`}><img src={vehicle.image} alt={formatVehicleTitle(vehicle)} loading="lazy" /></a>
             <div class="card-body">
-              <h3><a href={`/produit/${vehicle.slug}/`}>{vehicle.title}</a></h3>
+              <h3><a href={`/produit/${vehicle.slug}/`}>{formatVehicleTitle(vehicle)}</a></h3>
               <p>Vente sous contrôle de justice de gré à gré.</p>
+              {vehicle.offerDeadline && <p><strong>Date limite:</strong> {vehicle.offerDeadline}</p>}
             </div>
           </article>
         ))}
@@ -49,3 +94,54 @@ import { vehicles } from "../../data/site";
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .offer-form {
+    display: grid;
+    gap: 16px;
+  }
+
+  .offer-form label {
+    display: grid;
+    gap: 6px;
+    font-weight: 800;
+  }
+
+  .offer-form input,
+  .offer-form select,
+  .offer-form textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px;
+    background: #fff;
+    font: inherit;
+    font-weight: 400;
+  }
+
+  .required {
+    color: var(--danger);
+  }
+
+  .field-title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .hidden-field {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

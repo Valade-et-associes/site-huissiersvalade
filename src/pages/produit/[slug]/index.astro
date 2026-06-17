@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { vehicles } from "../../../data/site";
+import { formatVehicleTitle, vehicles } from "../../../data/vehicles";
 
 export function getStaticPaths() {
   return vehicles.map((vehicle) => ({
@@ -10,29 +10,66 @@ export function getStaticPaths() {
 }
 
 const { vehicle } = Astro.props;
+const vehicleTitle = formatVehicleTitle(vehicle);
 ---
 <BaseLayout
-  title={`${vehicle.title} - Valade et associés`}
-  description={`${vehicle.title} est listé dans les ventes de véhicules sous contrôle de justice de Valade et associés.`}
+  title={`${vehicleTitle} - Valade et associés`}
+  description={`${vehicleTitle} est listé dans les ventes de véhicules sous contrôle de justice de Valade et associés.`}
   image={vehicle.image}
 >
   <section class="section alt">
     <div class="wrap narrow">
       <p class="eyebrow">Véhicule</p>
-      <h1>{vehicle.title}</h1>
+      <h1>{vehicleTitle}</h1>
       <p class="lead">Vente sous contrôle de justice de gré à gré. Les informations de participation et de paiement sont celles de la page ventes sabots.</p>
-      <div class="actions"><a class="button" href="/vente-de-vehicules-operation-sabot-de-denver/">Retour aux véhicules</a></div>
+      <div class="actions">
+        <a class="button" href="/vente-de-vehicules-operation-sabot-de-denver/">Retour aux véhicules</a>
+        <a class="button gold" href="/vente-de-vehicules-operation-sabot-de-denver/#offre">Faire une offre</a>
+      </div>
     </div>
   </section>
   <section class="section">
     <div class="wrap split">
-      <img class="card" src={vehicle.image} alt={vehicle.title} />
+      <img class="card" src={vehicle.image} alt={vehicleTitle} />
       <div>
         <h2>Informations de vente</h2>
-        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Les véhicules sont vendus sans garantie légale, aux risques et périls de l’acheteur.</p>
-        <p>La gestion complète de l’offre en ligne sera reprise à l’étape 2, hors WordPress.</p>
-        <div class="notice"><strong>Paiement</strong><p>Le paiement doit être transmis par virement Interac à virements@valade.net dans l’heure suivant l’adjudication.</p></div>
+        <dl class="vehicle-details">
+          {vehicle.brand && <><dt>Marque</dt><dd>{vehicle.brand}</dd></>}
+          {vehicle.model && <><dt>Modèle</dt><dd>{vehicle.model}</dd></>}
+          {vehicle.year && <><dt>Année</dt><dd>{vehicle.year}</dd></>}
+          {vehicle.vin && <><dt>Numéro d'identification du véhicule</dt><dd>{vehicle.vin}</dd></>}
+          {vehicle.dossier && <><dt>Dossier</dt><dd>{vehicle.dossier}</dd></>}
+          {vehicle.keyStatus && <><dt>Clef du véhicule</dt><dd>{vehicle.keyStatus}</dd></>}
+          {vehicle.offerDeadline && <><dt>Date limite pour les offres</dt><dd>{vehicle.offerDeadline}</dd></>}
+        </dl>
+        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Les véhicules sont vendus sans garantie légale, aux risques et périls de l'acheteur.</p>
+        <div class="notice"><strong>Paiement</strong><p>Le paiement doit être transmis par virement Interac à virements@valade.net dans l'heure suivant l'adjudication.</p></div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .vehicle-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+    margin: 0 0 22px;
+  }
+
+  .vehicle-details dt {
+    font-weight: 800;
+    color: var(--navy);
+  }
+
+  .vehicle-details dd {
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .vehicle-details {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

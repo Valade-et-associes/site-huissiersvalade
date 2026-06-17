@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+<BaseLayout
+  title="Administration des véhicules - Valade et associés"
+  description="Formulaire privé d'ajout de véhicule pour les huissiers de Valade et associés."
+  canonical="/admin-vehicules/"
+  robots="noindex, nofollow"
+>
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="eyebrow">Administration</p>
+      <h1>Ajouter un véhicule</h1>
+      <p class="lead">Ce formulaire ajoute un véhicule à la liste publique et au formulaire d'offre après le prochain déploiement Netlify.</p>
+
+      <form class="admin-form" id="vehicle-admin-form">
+        <label>Mot de passe administrateur<input type="password" name="password" autocomplete="current-password" required /></label>
+        <label>Courriel de l'huissier responsable<input type="email" name="bailiffEmail" autocomplete="email" required /></label>
+
+        <div class="form-grid">
+          <label>Marque<input type="text" name="brand" placeholder="TOYOTA" required /></label>
+          <label>Modèle<input type="text" name="model" placeholder="SIENNA" required /></label>
+        </div>
+
+        <div class="form-grid">
+          <label>Année<input type="text" name="year" placeholder="2004" required /></label>
+          <label>Dossier<input type="text" name="dossier" placeholder="26-995" required /></label>
+        </div>
+
+        <label>Numéro d'identification du véhicule<input type="text" name="vin" placeholder="5TDZA23C345018534" required /></label>
+        <label>Clef du véhicule<input type="text" name="keyStatus" placeholder="NON-DISPONIBLE" required /></label>
+        <label>Date et heure limite pour la réception des offres<input type="text" name="offerDeadline" placeholder="09 JUILLET 2026, 12h00." required /></label>
+        <label>Image du véhicule<input type="file" name="imageFile" accept="image/png,image/jpeg,image/webp" required /></label>
+
+        <button class="button" type="submit">Ajouter le véhicule</button>
+        <p class="form-status" id="vehicle-admin-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector("#vehicle-admin-form");
+  const status = document.querySelector("#vehicle-admin-status");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!(form instanceof HTMLFormElement)) return;
+
+    status.textContent = "Envoi en cours...";
+    const data = new FormData(form);
+    const imageFile = data.get("imageFile");
+
+    if (!(imageFile instanceof File) || imageFile.size === 0) {
+      status.textContent = "Veuillez choisir une image.";
+      return;
+    }
+
+    const imageData = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => resolve(reader.result));
+      reader.addEventListener("error", () => reject(reader.error));
+      reader.readAsDataURL(imageFile);
+    });
+
+    const payload = Object.fromEntries(data.entries());
+    delete payload.imageFile;
+    payload.imageData = imageData;
+    payload.imageName = imageFile.name;
+
+    try {
+      const response = await fetch("/.netlify/functions/add-vehicle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Erreur inconnue.");
+      status.textContent = "Véhicule ajouté. Netlify va redéployer le site dans quelques instants.";
+      form.reset();
+    } catch (error) {
+      status.textContent = error instanceof Error ? error.message : "Impossible d'ajouter le véhicule.";
+    }
+  });
+</script>
+
+<style>
+  .admin-form {
+    display: grid;
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .admin-form label {
+    display: grid;
+    gap: 6px;
+    font-weight: 800;
+  }
+
+  .admin-form input {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px;
+    font: inherit;
+    font-weight: 400;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .form-status {
+    min-height: 28px;
+    color: var(--blue);
+    font-weight: 800;
+  }
+
+  @media (max-width: 720px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
