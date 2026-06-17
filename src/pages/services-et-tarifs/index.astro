@@ -1,37 +1,57 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { businessServices, tariffs } from "../../data/site";
 ---
 <BaseLayout
   title="Services et tarifs - Valade et associés"
-  description="Services d’huissiers pour entreprises et particuliers: signification, exécution de jugement, constats, services connexes et mode de tarification."
+  description="Services d’huissiers pour entreprises et particuliers: signification, exécution de jugement, constats, services connexes et tarification."
 >
   <section class="section alt">
     <div class="wrap narrow">
       <p class="eyebrow">Services et tarifs</p>
       <h1>Des services d’huissiers pour tous</h1>
-      <p class="lead">Chez Valade et associés, nous proposons une gamme complète de services pour les entreprises, les professionnels du droit et les particuliers.</p>
+      <p class="lead">Chez Valade et associés, huissiers de justice, nous vous proposons une gamme complète de services pour tous les types de besoins.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
+      <p class="eyebrow">Entreprise</p>
       <h2>Services aux entreprises</h2>
       <div class="grid two">
-        <article class="card"><h3>Signification</h3><p>Remise d’actes de procédure ou de documents à leur destinataire.</p><ul class="list"><li>Demande introductive d’instance</li><li>Citation à comparaître</li><li>Mise en demeure</li><li>Avis d’exécution</li><li>Demande en divorce</li><li>Avis de renouvellement de bail</li></ul></article>
-        <article class="card"><h3>Exécution</h3><p>Actes entrepris afin de satisfaire les conclusions d’un jugement, de façon impartiale.</p><ul class="list"><li>Saisie de biens meubles ou immeubles</li><li>Saisie de comptes bancaires</li><li>Saisie de revenus</li><li>Expulsion de locataires</li><li>Saisie de véhicules routiers</li></ul></article>
-        <article class="card"><h3>Constat</h3><p>Constatations objectives de faits matériels par huissier de justice.</p><ul class="list"><li>État des lieux loués</li><li>Bruits ou odeurs du voisinage</li><li>Constat web et réseaux sociaux</li><li>Inventaire de biens</li><li>Paroles ou gestes d’une personne</li></ul></article>
-        <article class="card"><h3>Services connexes</h3><ul class="list"><li>Service de cour complet</li><li>Émission et déposition de procédures</li><li>Cueillette et retour des procédures</li><li>Vente sous contrôle de justice</li><li>Perception amiable des créances</li><li>Immobilisation de véhicules</li></ul></article>
+        {businessServices.map((service) => (
+          <article class="card">
+            <h3>{service.title}</h3>
+            <p>{service.text}</p>
+            <ul class="list">
+              {service.examples.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="section alt">
     <div class="wrap">
+      <p class="eyebrow">Particulier</p>
       <h2>Services aux particuliers</h2>
       <div class="grid three">
-        <article class="card"><h3>Signification</h3><p>Pour une mise en demeure, un avis, une demande relative au non-paiement de loyer, une décision du TAL ou un jugement des Petites créances.</p><p>Préparez le type de document, l’adresse exacte, la nature du lieu et le délai souhaité.</p></article>
-        <article class="card"><h3>Exécution</h3><p>Si vous détenez un jugement, nous pouvons vous guider pour saisir des biens, comptes, revenus ou véhicules, ou procéder à une expulsion.</p><p>Rassemblez le maximum d’informations sur le débiteur et ses actifs.</p></article>
-        <article class="card"><h3>Constat</h3><p>Un constat permet de protéger vos droits, prévenir les conflits et documenter une situation devant les tribunaux.</p><p>Contactez-nous pour discuter de votre besoin précis.</p></article>
+        <article class="card">
+          <h3>Signification</h3>
+          <p>La signification permet de remettre officiellement un document à son destinataire. Suite à la signification, l’huissier rédige un procès-verbal constituant une preuve de haute qualité.</p>
+          <p>Exemples: mise en demeure, avis d’exécution, avis de renouvellement de bail, demande relative au non-paiement de loyer, décision du Tribunal administratif du logement ou jugement des Petites créances.</p>
+        </article>
+        <article class="card">
+          <h3>Exécution</h3>
+          <p>Une décision ou un jugement peut être exécuté par huissier lorsque le débiteur refuse de payer volontairement les sommes dues.</p>
+          <p>Avant de mandater la firme, récoltez le maximum d’informations sur les actifs, l’adresse résidentielle ou professionnelle du débiteur, ses revenus et toute information utile.</p>
+        </article>
+        <article class="card">
+          <h3>Constat</h3>
+          <p>Un constat d’huissier permet de protéger vos droits, prévenir les conflits, conserver une preuve et documenter une situation de manière impartiale.</p>
+          <p>Il peut viser un logement, des bruits ou odeurs, un site web, des réseaux sociaux, l’état d’un bien ou les paroles et gestes d’une personne.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -40,13 +60,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <div class="wrap split">
       <div>
         <p class="eyebrow">Mode de tarification</p>
-        <h2>Un cadre tarifaire encadré</h2>
+        <h2>Des honoraires encadrés</h2>
       </div>
       <div>
-        <p>Les services professionnels rendus par les huissiers de justice sont tarifés par le Tarif d’honoraires des huissiers de justice. Pour les services connexes, les huissiers peuvent convenir d’une tarification extrajudiciaire en vertu du Tarif d’honoraires professionnels.</p>
-        <div class="notice">
-          <strong>Documents tarifaires</strong>
-          <p>Les liens PDF exacts seront importés depuis WordPress ou remplacés par les versions finales lors de la reprise des actifs.</p>
+        <p>Les services professionnels rendus par les huissiers de justice sont tarifés par le Tarif d’honoraires des huissiers de justice. Pour les services connexes, les huissiers peuvent également convenir d’une tarification extrajudiciaire en vertu du Tarif d’honoraires professionnels.</p>
+        <div class="grid two">
+          {tariffs.map((tariff) => <a class="card" href={tariff.href}><h3>{tariff.title}</h3><p>Télécharger le PDF</p></a>)}
         </div>
       </div>
     </div>

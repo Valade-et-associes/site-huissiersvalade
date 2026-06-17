@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { posts } from "../../../data/site";
+
+const actions = posts.filter((post) => post.category === "Nos actions");
+---
+<BaseLayout title="Nos actions - Valade et associés" description="Articles de Valade et associés dans la catégorie Nos actions.">
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Catégorie</p>
+      <h1>Nos actions</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid two">
+      {actions.map((post) => <article class="card"><h2><a href={post.href}>{post.title}</a></h2><p>{post.excerpt}</p></article>)}
+    </div>
+  </section>
+</BaseLayout>

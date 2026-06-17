@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { assets } from "../../data/site";
+---
+<BaseLayout
+  title="Loyers impayés : Quelle solution choisir? - Huissiers Valade"
+  description="Vous avez des loyers impayés, la décision de la Régie du logement en main et un locataire refuse toujours de payer? Comparez huissier de justice, agence de recouvrement et cessionnaire."
+  image={assets.blogLoyers}
+>
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Immobilier · 2018-05-30</p>
+      <h1>Loyers impayés : Huissier de justice, agence de recouvrement ou cessionnaire?</h1>
+      <p class="lead">Quelle est la meilleure approche pour récupérer des loyers impayés suite à une décision favorable de la Régie du logement?</p>
+    </div>
+  </section>
+  <section class="section">
+    <article class="wrap narrow">
+      <img class="card" src={assets.blogLoyers} alt="" loading="lazy" />
+      <p>Les propriétaires d’immeubles à revenus ont la chance d’opérer une entreprise dans laquelle leurs clients paient leurs factures au premier jour de chaque mois. Toutefois, lorsqu’un locataire ne paie pas son loyer à la date prévue, cela peut occasionner des conflits, du stress, voire des problèmes financiers et juridiques.</p>
+      <h2>Le cas d’Alexandre</h2>
+      <p>Alexandre est propriétaire d’un immeuble à revenus de 6 logements à Montréal. Il a reçu sa décision de la Régie du logement ordonnant à un ancien locataire de lui payer 2 500 $, plus les intérêts et les frais de justice. Malgré la décision, le débiteur refuse de payer.</p>
+      <p>Plusieurs options lui sont suggérées: appeler une agence de recouvrement, vendre son jugement à un cessionnaire, ou faire exécuter sa décision avec un huissier de justice.</p>
+      <h2>Agences de recouvrement</h2>
+      <p>Les agences de recouvrement travaillent généralement à commission. Elles peuvent demander, faire des suivis et élaborer des stratégies de perception, mais elles n’ont pas le pouvoir de forcer un débiteur à payer comme le permet l’exécution légale d’un jugement.</p>
+      <h2>Cessionnaires</h2>
+      <p>Les sociétés qui achètent les jugements évaluent la créance, transmettent une offre et deviennent propriétaires des droits résultant du jugement. Le créancier reçoit un montant immédiat, mais généralement inférieur à la valeur totale de la dette.</p>
+      <h2>Huissier de justice</h2>
+      <p>L’huissier de justice peut entreprendre les procédures d’exécution prévues par la loi, notamment la saisie de biens, de revenus ou de comptes bancaires. Cette avenue dépend toutefois de l’information disponible sur le débiteur et ses actifs.</p>
+      <div class="notice"><strong>Besoin d’aide?</strong><p>Pour discuter d’un jugement ou d’une décision à exécuter, communiquez avec Valade et associés.</p></div>
+    </article>
+  </section>
+</BaseLayout>

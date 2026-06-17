@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { vehicles } from "../../../data/site";
+---
+<BaseLayout title="Véhicule Francois - Valade et associés" description="Catégorie de véhicules récupérée du site original de Valade et associés.">
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Catégorie produit</p>
+      <h1>Véhicule Francois</h1>
+      <p class="lead">Cette ancienne catégorie WooCommerce est conservée et renvoie vers les véhicules disponibles.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid three">
+      {vehicles.map((vehicle) => <article class="card"><h3><a href={`/produit/${vehicle.slug}/`}>{vehicle.title}</a></h3></article>)}
+    </div>
+  </section>
+</BaseLayout>

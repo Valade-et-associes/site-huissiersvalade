@@ -16,3 +16,18 @@
   from = "/juriweb/"
   to = "https://valade.juriweb.ca/"
   status = 302
+
+[[redirects]]
+  from = "/team/employe-4/"
+  to = "/team/luc-valade/"
+  status = 301
+
+[[redirects]]
+  from = "/team/employe-8/"
+  to = "/team/charles-valade/"
+  status = 301
+
+[[redirects]]
+  from = "/categorie-produit/vehicule-francois/page/*"
+  to = "/categorie-produit/vehicule-francois/"
+  status = 301

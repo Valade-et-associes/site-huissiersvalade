@@ -1,39 +1,48 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { vehicles } from "../../data/site";
 ---
 <BaseLayout
   title="Vente de véhicules – Opération sabot de Denver - Valade et associés"
-  description="Informations sur les ventes de véhicules sous contrôle de justice de gré à gré, opération sabot de Denver, par Valade et associés."
+  description="Véhicules faisant l’objet d’une vente sous contrôle de justice de gré à gré dans le cadre de l’opération sabot de Denver."
 >
   <section class="section alt">
     <div class="wrap narrow">
       <p class="eyebrow">Ventes sabots</p>
       <h1>Vente de véhicules – Opération sabot de Denver</h1>
-      <p class="lead">Les véhicules listés font l’objet d’une vente sous contrôle de justice de gré à gré.</p>
+      <p class="lead">Les véhicules listés et décrits ci-dessous font l’objet d’une vente sous contrôle de justice de gré à gré.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="wrap narrow">
-      <p>En tant qu’acheteurs potentiels, si vous souhaitez participer à la vente d’un ou de plusieurs véhicules, vous devrez utiliser le formulaire Web prévu et suivre les instructions correspondantes. Ce formulaire sera traité à l’étape 2.</p>
-      <p>Les véhicules sont entreposés à la fourrière de Remorquage Météor, située au 9405, boulevard St-Michel, Montréal (Québec) H1Z 4G9. Les acheteurs potentiels peuvent se rendre au site les mercredis précédant la vente, de 13 h à 15 h.</p>
-      <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Elles sont effectuées sans aucune garantie légale, aux risques et périls de l’acheteur.</p>
-      <p>L’adjudicataire retenu doit transmettre le paiement dans l’heure qui suit l’adjudication, par virement Interac à virements@valade.net. Le véhicule doit être récupéré la journée même avant 16 h.</p>
+    <div class="wrap split">
+      <div>
+        <h2>Instructions aux acheteurs potentiels</h2>
+        <p>Si vous souhaitez participer à la vente d’un ou de plusieurs véhicules, vous devez utiliser le formulaire Web et suivre les instructions correspondantes. Ce formulaire sera reconstruit à l’étape 2.</p>
+        <p>Les véhicules sont entreposés à la fourrière de Remorquage Météor, située au 9405, boulevard St-Michel, Montréal (Québec) H1Z 4G9.</p>
+        <p>Les acheteurs potentiels peuvent se rendre au site les mercredis précédant la vente sous contrôle de justice, de 13 h à 15 h, afin de voir le véhicule mis en vente.</p>
+      </div>
       <div class="notice">
-        <strong>Étape 2 à prévoir</strong>
-        <p>La liste dynamique des véhicules et le formulaire d’offre seront remplacés par une solution sans WordPress, compatible avec Netlify.</p>
+        <h3>Conditions de vente</h3>
+        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Elles sont effectuées sans aucune garantie légale, aux risques et périls de l’acheteur.</p>
+        <p>L’adjudicataire retenu doit transmettre le paiement dans l’heure suivant l’adjudication, par virement Interac à virements@valade.net.</p>
+        <p>Le véhicule doit être récupéré la journée même avant 16 h, autrement des frais quotidiens d’entreposage peuvent s’appliquer.</p>
       </div>
     </div>
   </section>
 
   <section class="section alt">
     <div class="wrap">
-      <h2>Nos véhicules</h2>
+      <p class="eyebrow">Nos véhicules</p>
+      <h2>Liste récupérée du site original</h2>
       <div class="grid three">
-        {["JDP – NISSAN SENTRA 2013 NOIR (26-975)", "JDP – HYUNDAI ELANTRA 2011 BLEU (26-951)", "FD – TOYOTA COROLLA 2004 GRIS (26-945)", "JDP – HYUNDAI ELANTRA 2005 VERT (26-936)", "JS – CHEVROLET CRUZE 2016 BLANC (26-916)", "JS – AUDI Q5 2015 NOIR (26-833)"].map((vehicle) => (
-          <article class="card">
-            <h3>{vehicle}</h3>
-            <p>Fiche statique temporaire en attente de la source de données finale.</p>
+        {vehicles.map((vehicle) => (
+          <article class="card media-card flush">
+            <a href={`/produit/${vehicle.slug}/`}><img src={vehicle.image} alt={vehicle.title} loading="lazy" /></a>
+            <div class="card-body">
+              <h3><a href={`/produit/${vehicle.slug}/`}>{vehicle.title}</a></h3>
+              <p>Vente sous contrôle de justice de gré à gré.</p>
+            </div>
           </article>
         ))}
       </div>

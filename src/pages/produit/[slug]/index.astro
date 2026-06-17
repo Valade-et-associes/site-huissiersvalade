@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { vehicles } from "../../../data/site";
+
+export function getStaticPaths() {
+  return vehicles.map((vehicle) => ({
+    params: { slug: vehicle.slug },
+    props: { vehicle }
+  }));
+}
+
+const { vehicle } = Astro.props;
+---
+<BaseLayout
+  title={`${vehicle.title} - Valade et associés`}
+  description={`${vehicle.title} est listé dans les ventes de véhicules sous contrôle de justice de Valade et associés.`}
+  image={vehicle.image}
+>
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Véhicule</p>
+      <h1>{vehicle.title}</h1>
+      <p class="lead">Vente sous contrôle de justice de gré à gré. Les informations de participation et de paiement sont celles de la page ventes sabots.</p>
+      <div class="actions"><a class="button" href="/vente-de-vehicules-operation-sabot-de-denver/">Retour aux véhicules</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split">
+      <img class="card" src={vehicle.image} alt={vehicle.title} />
+      <div>
+        <h2>Informations de vente</h2>
+        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Les véhicules sont vendus sans garantie légale, aux risques et périls de l’acheteur.</p>
+        <p>La gestion complète de l’offre en ligne sera reprise à l’étape 2, hors WordPress.</p>
+        <div class="notice"><strong>Paiement</strong><p>Le paiement doit être transmis par virement Interac à virements@valade.net dans l’heure suivant l’adjudication.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

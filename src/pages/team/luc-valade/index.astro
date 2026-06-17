@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { assets } from "../../../data/site";
+---
+<BaseLayout title="Luc Valade - Valade et associés" description="Profil de Luc Valade, huissier de justice, président et fondateur de Valade et associés.">
+  <section class="section">
+    <div class="wrap split">
+      <img class="card" src={assets.luc} alt="Luc Valade" />
+      <div>
+        <p class="eyebrow">Président et fondateur</p>
+        <h1>Luc Valade, huissier de justice #677</h1>
+        <p class="lead">Expérience de plus de 43 ans comme huissier de justice et de près de 36 ans comme dirigeant d’entreprise.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

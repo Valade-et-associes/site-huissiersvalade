@@ -1,19 +1,23 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { services, site } from "../data/site";
+import { assets, businessServices, posts, site, stats } from "../data/site";
 ---
 <BaseLayout
   title="Accueil - Valade et associés"
-  description="Huissiers de justice du Grand Montréal au service des cabinets d’avocats, propriétaires, particuliers, notaires et organisations québécoises depuis 1989."
+  description="Valade et associés, huissiers de justice du Grand Montréal, accompagne cabinets d’avocats, propriétaires, particuliers, notaires, contentieux et organisations québécoises depuis 1989."
+  image={assets.heroDocument}
 >
-  <section class="hero">
-    <div class="hero-panel">
-      <p class="eyebrow">Huissiers de justice du Grand Montréal</p>
-      <h1>Valade et associés</h1>
-      <p class="lead">Signification, exécution de jugement, expulsion de locataires, constats et services connexes menés avec rigueur, impartialité et professionnalisme.</p>
-      <div class="hero-actions">
-        <a class="button" href="/contact/">Contactez-nous</a>
-        <a class="button secondary" href="/services-et-tarifs/">Voir nos services</a>
+  <section class="hero" style={`--hero-image: url('${assets.heroDocument}')`}>
+    <div class="hero-content">
+      <p class="eyebrow">Documents du Tribunal administratif du logement en main?</p>
+      <h1>Expérience, professionnalisme et excellence</h1>
+      <p class="lead">Une équipe solide d’huissiers de justice orientée vers le progrès. Vous souhaitez signifier un document, saisir les actifs de votre débiteur ou expulser votre locataire? Vous êtes au bon endroit.</p>
+      <div class="actions">
+        <a class="button gold" href="/contact/">Contactez-nous</a>
+        <a class="button outline" href="/services-et-tarifs/">Voir nos services</a>
+      </div>
+      <div class="hero-cardline" aria-label="Statistiques Valade et associés">
+        {stats.map((stat) => <div><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
       </div>
     </div>
   </section>
@@ -21,14 +25,14 @@ import { services, site } from "../data/site";
   <section class="section">
     <div class="wrap split">
       <div>
-        <p class="eyebrow">Depuis 1989</p>
+        <p class="eyebrow">Huissiers de justice du Grand Montréal</p>
         <h2>Vos mandats, notre mission</h2>
-        <p class="lead">Une équipe solide d’huissiers de justice orientée vers le progrès, la communication et la résolution efficace des enjeux juridiques.</p>
+        <p class="lead">Au service des cabinets d’avocats, propriétaires, gestionnaires d’immeubles, particuliers, notaires, contentieux et organisations québécoises depuis 1989.</p>
       </div>
       <div>
-        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, notre rôle est d’analyser, d’agir et de résoudre.</p>
-        <p>Notre mission est d’offrir les meilleurs services d’huissiers tout en respectant à la lettre les cadres législatifs et réglementaires régissant la profession.</p>
-        <p>Établie dans le Vieux-Montréal, la firme accompagne les cabinets d’avocats, propriétaires, gestionnaires d’immeubles, particuliers, notaires, contentieux et organisations québécoises.</p>
+        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, le rôle de notre équipe est d’analyser, d’agir et de résoudre.</p>
+        <p>Les mandats entrepris par nos huissiers sont toujours réalisés dans l’intérêt de tous les intervenants au conflit litigieux. Notre engagement se traduit par une union équilibrée entre l’impartialité professionnelle et le dévouement d’une équipe ayant à coeur les enjeux de ses clients.</p>
+        <p>Notre mission est d’offrir rien de moins que les meilleurs services d’huissiers tout en respectant à la lettre les cadres législatifs et réglementaires régissant notre profession.</p>
       </div>
     </div>
   </section>
@@ -36,35 +40,54 @@ import { services, site } from "../data/site";
   <section class="section alt">
     <div class="wrap">
       <p class="eyebrow">Services</p>
-      <h2>Une gamme complète pour entreprises et particuliers</h2>
+      <h2>Signification, exécution, constats et services connexes</h2>
       <div class="grid four">
-        {services.map((service) => (
+        {businessServices.map((service) => (
           <article class="card">
             <h3>{service.title}</h3>
             <p>{service.text}</p>
           </article>
         ))}
       </div>
+      <div class="actions"><a class="button" href="/services-et-tarifs/">Nos services</a></div>
     </div>
   </section>
 
-  <section class="visual-band" aria-label="Montréal, territoire desservi"></section>
-
   <section class="section">
-    <div class="wrap grid three">
-      <div class="card">
-        <h3>JuriWeb</h3>
-        <p>Accédez à vos procès-verbaux et dossiers de facturation en toute sécurité.</p>
-        <a class="button blue" href={site.juriweb}>Se connecter</a>
-      </div>
-      <div class="card">
-        <h3>Communication et vulgarisation</h3>
-        <p>Notre équipe répond à vos questions procédurales, à vos besoins de service et à vos questions de tarification.</p>
-      </div>
-      <div class="card">
-        <h3>Documents TAL en main?</h3>
-        <p>Nous pouvons vous orienter rapidement pour la signification ou l’exécution de vos documents.</p>
-        <a class="button blue" href="/contact/">Nous joindre</a>
+    <div class="wrap grid two">
+      <article class="card">
+        <p class="eyebrow">Plateforme JuriWeb</p>
+        <h2>Accès aux procès-verbaux et à la facturation</h2>
+        <p>Accédez immédiatement à tous les procès-verbaux de nos huissiers et à vos dossiers de facturation, en toute sécurité et en tout temps.</p>
+        <div class="actions">
+          <a class="button" href={site.juriweb}>Se connecter</a>
+          <a class="button outline" href="/contact/">Je veux m’inscrire</a>
+        </div>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Communication et vulgarisation</p>
+        <h2>Des réponses claires</h2>
+        <p>Dotés d’une riche expérience et d’une réputation enviable, les huissiers de justice de Valade et associés sont en mesure de prodiguer conseils et recommandations à l’égard de vos questionnements procéduraux.</p>
+        <p>Si vous êtes confus par rapport à nos services ou à notre tarification, il nous fera plaisir de répondre à vos questions.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <p class="eyebrow">Notre blogue</p>
+      <h2>Actualités et nouvelles</h2>
+      <div class="grid two">
+        {posts.map((post) => (
+          <article class="card media-card flush">
+            <img src={post.image} alt="" loading="lazy" />
+            <div class="card-body">
+              <p><span class="badge">{post.date}</span></p>
+              <h3><a href={post.href}>{post.title}</a></h3>
+              <p>{post.excerpt}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>

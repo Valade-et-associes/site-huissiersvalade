@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { assets } from "../../data/site";
+---
+<BaseLayout
+  title="Lancement du nouveau site web - Valade et associés"
+  description="Annonce du lancement du nouveau site web de Valade et associés."
+  image={assets.logoLight}
+>
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Nos actions</p>
+      <h1>Lancement du nouveau site web</h1>
+      <p class="lead">L’équipe de Valade et associés est fière de vous présenter son nouveau site web.</p>
+    </div>
+  </section>
+  <section class="section">
+    <article class="wrap narrow">
+      <p>Vous pourrez maintenant consulter nos services, trouver rapidement nos coordonnées, télécharger nos formulaires et accéder à nos actualités.</p>
+      <p>Cette page est conservée afin de préserver l’URL existante issue du site WordPress.</p>
+    </article>
+  </section>
+</BaseLayout>

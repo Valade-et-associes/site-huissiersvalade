@@ -1,14 +1,16 @@
 ---
-import { nav, site } from "../data/site";
+import { assets, nav, site } from "../data/site";
 
 interface Props {
   title: string;
   description: string;
   canonical?: string;
+  image?: string;
 }
 
-const { title, description, canonical = Astro.url.pathname } = Astro.props;
+const { title, description, canonical = Astro.url.pathname, image = assets.logoLight } = Astro.props;
 const canonicalUrl = new URL(canonical, site.url).toString();
+const imageUrl = new URL(image, site.url).toString();
 ---
 <!doctype html>
 <html lang="fr-CA">
@@ -25,6 +27,7 @@ const canonicalUrl = new URL(canonical, site.url).toString();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -35,6 +38,7 @@ const canonicalUrl = new URL(canonical, site.url).toString();
       telephone: site.phone,
       faxNumber: site.fax,
       email: site.email,
+      image: imageUrl,
       address: {
         "@type": "PostalAddress",
         streetAddress: site.address.street,
@@ -43,39 +47,49 @@ const canonicalUrl = new URL(canonical, site.url).toString();
         postalCode: site.address.postalCode,
         addressCountry: "CA"
       },
-      areaServed: "Grand Montréal",
+      areaServed: ["Montréal", "Grand Montréal", "Québec"],
       priceRange: "$$"
     })}></script>
   </head>
   <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="Accueil Valade et associés">
-        <span class="brand-mark">V</span>
-        <span>
-          <strong>Valade et associés</strong>
-          <small>Huissiers de justice</small>
-        </span>
-      </a>
-      <nav class="nav" aria-label="Navigation principale">
-        {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-        <a class="nav-action" href={site.juriweb}>JuriWeb</a>
-      </nav>
+      <div class="topbar">
+        <a href={`tel:+15148422345`}>Tél. {site.phone}</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={site.juriweb}>Accès JuriWeb</a>
+      </div>
+      <div class="header-main">
+        <a class="brand" href="/" aria-label="Accueil Valade et associés">
+          <img src={assets.logo} alt="Valade et associés" width="442" height="100" />
+        </a>
+        <nav class="nav" aria-label="Navigation principale">
+          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+          <a class="nav-action" href={site.juriweb}>Juriweb</a>
+        </nav>
+      </div>
     </header>
-    <main>
+    <main id="contenu">
       <slot />
     </main>
     <footer class="site-footer">
-      <div>
-        <strong>{site.legalName}</strong>
-        <p>{site.address.street}<br />{site.address.city} ({site.address.region}) {site.address.postalCode}</p>
-      </div>
-      <div>
-        <strong>Pour nous joindre</strong>
-        <p><a href={`mailto:${site.email}`}>{site.email}</a><br /><a href={`tel:+15148422345`}>Tél: {site.phone}</a><br />Fax: {site.fax}</p>
-      </div>
-      <div>
-        <strong>Accès client</strong>
-        <p>Procès-verbaux et facturation sécurisés via <a href={site.juriweb}>JuriWeb</a>.</p>
+      <div class="footer-inner">
+        <div>
+          <img class="footer-logo" src={assets.logoLight} alt="Valade et associés" />
+          <p>Huissiers de justice du Grand Montréal au service des cabinets d’avocats, propriétaires, particuliers, notaires, contentieux et organisations québécoises depuis 1989.</p>
+        </div>
+        <div>
+          <h2>Pour nous joindre</h2>
+          <p><strong>{site.legalName}</strong><br />{site.address.street}<br />{site.address.city} ({site.address.region}) {site.address.postalCode}</p>
+          <p><a href={`mailto:${site.email}`}>{site.email}</a><br /><a href="tel:+15148422345">Tél: {site.phone}</a><br />Fax: {site.fax}</p>
+        </div>
+        <div>
+          <h2>Navigation</h2>
+          <ul class="footer-links">
+            {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            <li><a href="/blogue/">Blogue</a></li>
+          </ul>
+        </div>
       </div>
       <p class="copyright">© 2026 {site.legalName}. Tous droits réservés.</p>
     </footer>
@@ -84,149 +98,96 @@ const canonicalUrl = new URL(canonical, site.url).toString();
 
 <style is:global>
   :root {
-    --ink: #142033;
-    --muted: #5b6575;
-    --line: #d9dee7;
-    --paper: #f7f8f9;
+    --ink: #202638;
+    --muted: #667085;
+    --line: #dfe4ec;
+    --paper: #f4f6f8;
     --white: #ffffff;
-    --blue: #123a5c;
-    --blue-2: #0c5780;
-    --gold: #c99b45;
-    --green: #406b5a;
-    --shadow: 0 18px 60px rgba(12, 24, 40, 0.12);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --navy: #17285b;
+    --blue: #243c7b;
+    --pale-blue: #e7f2f6;
+    --cyan: #9fd2df;
+    --gold: #c9a44f;
+    --danger: #9e2f2f;
+    --shadow: 0 18px 44px rgba(18, 32, 65, 0.12);
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   * { box-sizing: border-box; }
-  body { margin: 0; color: var(--ink); background: var(--white); line-height: 1.6; }
-  a { color: inherit; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; color: var(--ink); background: var(--white); line-height: 1.62; }
   img { max-width: 100%; display: block; }
+  a { color: var(--blue); }
+  .skip-link { position: absolute; left: -999px; top: 8px; z-index: 100; background: var(--navy); color: #fff; padding: 8px 12px; }
+  .skip-link:focus { left: 8px; }
 
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 14px clamp(18px, 4vw, 56px);
-    background: rgba(255, 255, 255, 0.94);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(18px);
-  }
+  .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); box-shadow: 0 6px 28px rgba(18,32,65,.06); backdrop-filter: blur(12px); }
+  .topbar { display: flex; justify-content: flex-end; gap: 20px; padding: 8px clamp(18px, 4vw, 56px); background: var(--navy); color: rgba(255,255,255,.86); font-size: 13px; }
+  .topbar a { color: inherit; text-decoration: none; }
+  .header-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px clamp(18px, 4vw, 56px); }
+  .brand img { width: 265px; height: auto; }
+  .nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 2px; }
+  .nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 10px; text-decoration: none; color: #30384a; font-size: 13px; font-weight: 700; text-transform: uppercase; border-radius: 4px; }
+  .nav a:hover, .nav .nav-action { background: var(--pale-blue); color: var(--blue); }
 
-  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: max-content; }
-  .brand-mark {
-    display: grid;
-    place-items: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    background: var(--blue);
-    color: var(--white);
-    font-weight: 800;
-    font-size: 24px;
-  }
-  .brand strong, .brand small { display: block; line-height: 1.1; }
-  .brand small { color: var(--muted); font-size: 12px; margin-top: 3px; }
-  .nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
-  .nav a {
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 11px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 14px;
-    font-weight: 650;
-  }
-  .nav a:hover, .nav .nav-action { color: var(--blue); background: #edf3f7; }
-
-  .section { padding: clamp(54px, 8vw, 96px) clamp(18px, 4vw, 56px); }
+  .section { padding: clamp(54px, 8vw, 94px) clamp(18px, 4vw, 56px); }
   .section.alt { background: var(--paper); }
   .wrap { max-width: 1160px; margin: 0 auto; }
-  .narrow { max-width: 820px; }
-  .eyebrow { color: var(--blue-2); font-weight: 800; text-transform: uppercase; letter-spacing: 0; font-size: 13px; }
-  h1, h2, h3 { line-height: 1.08; margin: 0 0 18px; letter-spacing: 0; }
-  h1 { font-size: clamp(42px, 7vw, 76px); max-width: 940px; }
-  h2 { font-size: clamp(30px, 4vw, 48px); }
+  .narrow { max-width: 850px; }
+  .eyebrow { margin: 0 0 10px; color: var(--blue); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0; }
+  h1, h2, h3 { margin: 0 0 18px; line-height: 1.12; color: var(--navy); letter-spacing: 0; }
+  h1 { font-size: clamp(38px, 6.4vw, 72px); max-width: 980px; }
+  h2 { font-size: clamp(28px, 4vw, 46px); }
   h3 { font-size: 22px; }
   p { margin: 0 0 16px; }
-  .lead { color: var(--muted); font-size: clamp(18px, 2vw, 22px); max-width: 760px; }
+  .lead { color: var(--muted); font-size: clamp(18px, 2vw, 22px); max-width: 820px; }
 
-  .hero {
-    min-height: calc(100vh - 72px);
-    display: grid;
-    align-items: end;
-    padding: clamp(90px, 12vw, 150px) clamp(18px, 4vw, 56px) clamp(54px, 8vw, 86px);
-    color: var(--white);
-    background:
-      linear-gradient(90deg, rgba(12, 25, 42, 0.86), rgba(12, 25, 42, 0.46) 56%, rgba(12, 25, 42, 0.2)),
-      url("https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1800&q=82") center / cover;
-  }
-  .hero .lead { color: rgba(255, 255, 255, 0.86); }
-  .hero-panel { max-width: 1120px; margin: 0 auto; width: 100%; }
-  .hero-actions, .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .hero { min-height: 670px; display: grid; align-items: center; color: #fff; background: linear-gradient(90deg, rgba(15,28,67,.88), rgba(23,40,91,.62), rgba(23,40,91,.22)), var(--hero-image) center/cover; padding: clamp(72px, 10vw, 130px) clamp(18px, 4vw, 56px); }
+  .hero h1, .hero .eyebrow { color: #fff; }
+  .hero .lead { color: rgba(255,255,255,.88); }
+  .hero-content { max-width: 1160px; margin: 0 auto; width: 100%; }
+  .hero-cardline { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1px; margin-top: 46px; max-width: 930px; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.22); }
+  .hero-cardline div { padding: 22px; background: rgba(8,17,43,.42); }
+  .hero-cardline strong { display: block; font-size: 38px; line-height: 1; color: #fff; }
+  .hero-cardline span { color: rgba(255,255,255,.82); text-transform: uppercase; font-size: 12px; font-weight: 700; }
 
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 12px 18px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    background: var(--gold);
-    color: #14110a;
-    text-decoration: none;
-    font-weight: 800;
-  }
-  .button.secondary { background: transparent; color: inherit; border-color: currentColor; }
-  .button.blue { background: var(--blue); color: var(--white); }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .button { display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 12px 18px; border-radius: 4px; border: 1px solid transparent; background: var(--blue); color: #fff; font-weight: 800; text-decoration: none; text-transform: uppercase; font-size: 13px; }
+  .button.gold { background: var(--gold); color: #14110a; }
+  .button.light { background: #fff; color: var(--blue); }
+  .button.outline { background: transparent; color: inherit; border-color: currentColor; }
 
-  .grid { display: grid; gap: 20px; }
-  .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .card {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 8px 28px rgba(12, 24, 40, 0.06);
-  }
-  .stat { padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.35); }
-  .stat strong { display: block; font-size: clamp(34px, 6vw, 58px); line-height: 1; }
-  .list { padding-left: 20px; margin: 0; }
-  .list li { margin: 8px 0; }
-  .split { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(28px, 6vw, 72px); align-items: start; }
-  .visual-band {
-    min-height: 360px;
-    background:
-      linear-gradient(180deg, rgba(18,58,92,0.14), rgba(18,58,92,0.05)),
-      url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=80") center / cover;
-  }
-  .notice { border-left: 4px solid var(--gold); padding: 16px 18px; background: #fff8e8; }
-  .disabled-form { opacity: 0.72; pointer-events: none; }
+  .grid { display: grid; gap: 22px; }
+  .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .split { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 74px); align-items: start; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 24px; box-shadow: 0 10px 26px rgba(18,32,65,.06); }
+  .card.flush { padding: 0; overflow: hidden; }
+  .list { margin: 0; padding-left: 20px; }
+  .list li { margin: 7px 0; }
+  .notice { border-left: 4px solid var(--gold); background: #fff8e5; padding: 17px 18px; }
+  .badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 9px; border-radius: 4px; background: var(--pale-blue); color: var(--blue); font-weight: 800; font-size: 12px; text-transform: uppercase; }
+  .media-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .media-card .card-body { padding: 22px; }
+  .disabled-form { opacity: .72; }
+  .disabled-form input, .disabled-form textarea, .disabled-form button { pointer-events: none; }
 
-  .site-footer {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 28px;
-    padding: 44px clamp(18px, 4vw, 56px);
-    background: #101823;
-    color: rgba(255,255,255,0.86);
-  }
-  .site-footer strong { color: var(--white); }
-  .site-footer a { color: var(--white); }
-  .copyright { grid-column: 1 / -1; color: rgba(255,255,255,0.58); margin: 0; border-top: 1px solid rgba(255,255,255,0.16); padding-top: 22px; }
+  .site-footer { background: #121a2c; color: rgba(255,255,255,.78); padding: 48px clamp(18px,4vw,56px) 26px; }
+  .footer-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr .8fr; gap: 34px; }
+  .footer-logo { width: 250px; margin-bottom: 18px; }
+  .site-footer h2 { color: #fff; font-size: 18px; }
+  .site-footer a { color: #fff; }
+  .footer-links { list-style: none; padding: 0; margin: 0; }
+  .footer-links li { margin-bottom: 8px; }
+  .copyright { max-width: 1160px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.16); font-size: 13px; color: rgba(255,255,255,.58); }
 
-  @media (max-width: 880px) {
-    .site-header { position: static; align-items: flex-start; flex-direction: column; }
+  @media (max-width: 940px) {
+    .site-header { position: static; }
+    .topbar { justify-content: flex-start; flex-wrap: wrap; gap: 10px 16px; }
+    .header-main { flex-direction: column; align-items: flex-start; }
     .nav { justify-content: flex-start; }
-    .grid.two, .grid.three, .grid.four, .split, .site-footer { grid-template-columns: 1fr; }
-    .hero { min-height: 720px; }
+    .grid.two, .grid.three, .grid.four, .split, .footer-inner, .hero-cardline { grid-template-columns: 1fr; }
+    .hero { min-height: 620px; }
   }
 </style>

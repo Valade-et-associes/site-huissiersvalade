@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { posts } from "../../data/site";
+---
+<BaseLayout
+  title="Blogue - Valade et associés"
+  description="Actualités et nouvelles de Valade et associés, huissiers de justice à Montréal."
+>
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Blogue</p>
+      <h1>Actualités et nouvelles</h1>
+      <p class="lead">Articles récupérés du site original afin de préserver les contenus et URLs existants.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid two">
+      {posts.map((post) => (
+        <article class="card media-card flush">
+          <img src={post.image} alt="" loading="lazy" />
+          <div class="card-body">
+            <p><span class="badge">{post.category}</span> {post.date}</p>
+            <h2><a href={post.href}>{post.title}</a></h2>
+            <p>{post.excerpt}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

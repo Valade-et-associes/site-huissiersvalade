@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { posts } from "../../../data/site";
+---
+<BaseLayout title="Charles Valade - Valade et associés" description="Articles publiés par Charles Valade sur le site de Valade et associés.">
+  <section class="section alt">
+    <div class="wrap narrow">
+      <p class="eyebrow">Auteur</p>
+      <h1>Charles Valade</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid two">
+      {posts.map((post) => <article class="card"><h2><a href={post.href}>{post.title}</a></h2><p>{post.excerpt}</p></article>)}
+    </div>
+  </section>
+</BaseLayout>
