@@ -11,6 +11,7 @@ interface Props {
 const { title, description, canonical = Astro.url.pathname, image = assets.logoLight } = Astro.props;
 const canonicalUrl = new URL(canonical, site.url).toString();
 const imageUrl = new URL(image, site.url).toString();
+const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 ---
 <!doctype html>
 <html lang="fr-CA">
@@ -54,18 +55,17 @@ const imageUrl = new URL(image, site.url).toString();
   <body>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
     <header class="site-header">
-      <div class="topbar">
-        <a href={`tel:+15148422345`}>Tél. {site.phone}</a>
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        <a href={site.juriweb}>Accès JuriWeb</a>
-      </div>
       <div class="header-main">
         <a class="brand" href="/" aria-label="Accueil Valade et associés">
           <img src={assets.logo} alt="Valade et associés" width="442" height="100" />
         </a>
         <nav class="nav" aria-label="Navigation principale">
-          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-          <a class="nav-action" href={site.juriweb}>Juriweb</a>
+          {nav.map((item) => (
+            <a class:list={{ "is-active": currentPath === item.href }} aria-current={currentPath === item.href ? "page" : undefined} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+          <a href={site.juriweb}>Juriweb</a>
         </nav>
       </div>
     </header>
@@ -122,13 +122,12 @@ const imageUrl = new URL(image, site.url).toString();
   .skip-link:focus { left: 8px; }
 
   .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); box-shadow: 0 6px 28px rgba(18,32,65,.06); backdrop-filter: blur(12px); }
-  .topbar { display: flex; justify-content: flex-end; gap: 20px; padding: 8px clamp(18px, 4vw, 56px); background: var(--navy); color: rgba(255,255,255,.86); font-size: 13px; }
-  .topbar a { color: inherit; text-decoration: none; }
   .header-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px clamp(18px, 4vw, 56px); }
   .brand img { width: 265px; height: auto; }
   .nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 2px; }
   .nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 10px; text-decoration: none; color: #30384a; font-size: 13px; font-weight: 700; text-transform: uppercase; border-radius: 4px; }
-  .nav a:hover, .nav .nav-action { background: var(--pale-blue); color: var(--blue); }
+  .nav a:hover { background: var(--pale-blue); color: var(--blue); }
+  .nav a.is-active { background: var(--blue); color: #fff; }
 
   .section { padding: clamp(54px, 8vw, 94px) clamp(18px, 4vw, 56px); }
   .section.alt { background: var(--paper); }
@@ -184,7 +183,6 @@ const imageUrl = new URL(image, site.url).toString();
 
   @media (max-width: 940px) {
     .site-header { position: static; }
-    .topbar { justify-content: flex-start; flex-wrap: wrap; gap: 10px 16px; }
     .header-main { flex-direction: column; align-items: flex-start; }
     .nav { justify-content: flex-start; }
     .grid.two, .grid.three, .grid.four, .split, .footer-inner, .hero-cardline { grid-template-columns: 1fr; }
