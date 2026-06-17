@@ -4,45 +4,172 @@ import { site } from "../../data/site";
 ---
 <BaseLayout
   title="Contact - Valade et associés"
-  description="Coordonnées de Valade et associés, huissiers de justice à Montréal: adresse, téléphone, télécopieur, courriel et heures d’ouverture."
+  description="Coordonnées de Valade et associés, huissiers de justice à Montréal: adresse, téléphone, télécopieur, courriel et heures d'ouverture."
 >
   <section class="section alt">
     <div class="wrap split">
       <div>
         <p class="eyebrow">Contact</p>
         <h1>Pour nous joindre</h1>
-        <p class="lead">Notre équipe est disponible du lundi au vendredi, de 8 h 30 à 17 h, pour vos demandes de signification, d’exécution, de constat et de services connexes.</p>
+        <p class="lead">Notre équipe est disponible du lundi au vendredi, de 8 h 30 à 17 h, pour vos demandes de signification, d'exécution, de constat et de services connexes.</p>
       </div>
       <div class="card">
         <h2>{site.legalName}</h2>
         <p>{site.address.street}<br />{site.address.city}, QC {site.address.postalCode}</p>
         <p>{site.hours}</p>
         <p>Tél. : <a href="tel:+15148422345">{site.phone}</a><br />Numéro sans frais : <a href="tel:+18888759499">{site.tollFree}</a><br />Fax : {site.fax}</p>
-        <p><a href={`mailto:${site.documentsEmail}`}>{site.documentsEmail}</a></p>
+        <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">Étape 2</p>
-        <h2>Envoyez votre message</h2>
-        <p>Le formulaire WordPress original nécessitait JavaScript et un traitement serveur. Pour cette première version statique, il est représenté visuellement mais désactivé. La vraie gestion de l’envoi sera traitée à l’étape 2.</p>
-        <div class="actions"><a class="button" href={`mailto:${site.documentsEmail}`}>Écrire par courriel</a></div>
+    <div class="wrap split contact-layout">
+      <div class="contact-details">
+        <p class="eyebrow">Pour nous joindre</p>
+        <p>{site.address.street}<br />{site.address.city}, QC {site.address.postalCode}</p>
+        <p>{site.hours}</p>
+        <p>Tél. : <a href="tel:+15148422345">{site.phone}</a><br />Numéro sans frais : <a href="tel:+18888759499">{site.tollFree}</a><br />Fax: {site.fax}</p>
+        <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
       </div>
-      <form class="card disabled-form" aria-disabled="true">
-        <label>Nom<br /><input type="text" disabled /></label>
-        <label>Courriel<br /><input type="email" disabled /></label>
-        <label>Message<br /><textarea rows="6" disabled></textarea></label>
-        <button class="button" type="button" disabled>Envoi désactivé</button>
+
+      <form class="contact-form" name="contact" method="POST" action="/contact/merci/" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden-field">
+          <label>Ne pas remplir ce champ: <input name="bot-field" /></label>
+        </p>
+
+        <div class="form-row">
+          <label>
+            <span>Votre nom</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Votre nom" required />
+          </label>
+          <label>
+            <span>Votre courriel</span>
+            <input type="email" name="email" autocomplete="email" placeholder="Votre courriel" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Téléphone</span>
+          <input type="tel" name="phone" autocomplete="tel" placeholder="Téléphone" />
+        </label>
+
+        <label>
+          <span>Votre message</span>
+          <textarea name="message" rows="8" placeholder="Votre message" required></textarea>
+        </label>
+
+        <div class="captcha" data-netlify-recaptcha="true"></div>
+        <button type="submit">Envoyez votre message</button>
       </form>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  form { display: grid; gap: 16px; }
-  input, textarea { width: 100%; margin-top: 6px; border: 1px solid var(--line); border-radius: 4px; padding: 12px; font: inherit; background: #f5f6f8; }
-  button:disabled { opacity: .62; }
+  .contact-layout {
+    grid-template-columns: .52fr 1.48fr;
+  }
+
+  .contact-details {
+    color: #444;
+    font-size: 17px;
+  }
+
+  .contact-form {
+    display: grid;
+    border: 2px solid #333;
+    background: #fff;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-form label {
+    display: grid;
+    margin: 0;
+  }
+
+  .contact-form span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #333;
+    border-radius: 0;
+    padding: 18px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    letter-spacing: 1px;
+  }
+
+  .form-row label + label input {
+    border-left: 2px solid #333;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .contact-form textarea {
+    min-height: 210px;
+    resize: vertical;
+  }
+
+  .captcha {
+    min-height: 74px;
+    padding: 14px 18px;
+    border-bottom: 2px solid #333;
+  }
+
+  .contact-form button {
+    min-height: 56px;
+    border: 0;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .contact-form button:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .hidden-field {
+    display: none;
+  }
+
+  @media (max-width: 940px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .form-row label + label input {
+      border-left: 0;
+    }
+  }
 </style>
