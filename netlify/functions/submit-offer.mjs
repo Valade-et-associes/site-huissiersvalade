@@ -1,5 +1,8 @@
 import { createRequire } from "node:module";
-import { sendMail } from "./_smtp.mjs";
+import { loadLocalEnv } from "./_env.mjs";
+import { sendGraphMail } from "./_graph-mail.mjs";
+
+loadLocalEnv();
 
 const require = createRequire(import.meta.url);
 const vehicles = require("../../src/data/vehicles.json");
@@ -38,6 +41,7 @@ export async function handler(event) {
 
     const vehicle = vehicles.find((item) => item.slug === data.vehicleSlug);
     if (!vehicle) return json(400, { error: "Véhicule invalide." });
+
     const requiredFields = ["firstName", "lastName", "email", "phone", "address", "city", "province", "postalCode", "country", "amount"];
     if (requiredFields.some((field) => !data[field])) {
       return json(400, { error: "Veuillez remplir tous les champs obligatoires." });
@@ -74,7 +78,7 @@ export async function handler(event) {
       `Date limite: ${vehicle.offerDeadline || ""}`
     ].join("\n");
 
-    await sendMail({ to, replyTo: data.email, subject, text });
+    await sendGraphMail({ to, replyTo: data.email, subject, text });
 
     return {
       statusCode: 303,

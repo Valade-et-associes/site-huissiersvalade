@@ -74,6 +74,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        throw new Error("La fonction Netlify add-vehicle n'est pas disponible. Testez cette page sur le site Netlify déployé ou avec netlify dev, pas avec astro dev.");
+      }
+
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Erreur inconnue.");
       status.textContent = "Véhicule ajouté. Netlify va redéployer le site dans quelques instants.";
