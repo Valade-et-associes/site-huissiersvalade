@@ -11,6 +11,7 @@ export function getStaticPaths() {
 
 const { vehicle } = Astro.props;
 const vehicleTitle = formatVehicleTitle(vehicle);
+const vehicleImages = vehicle.images?.length ? vehicle.images : [vehicle.image];
 ---
 <BaseLayout
   title={`${vehicleTitle} - Valade et associés`}
@@ -30,7 +31,11 @@ const vehicleTitle = formatVehicleTitle(vehicle);
   </section>
   <section class="section">
     <div class="wrap split">
-      <img class="card" src={vehicle.image} alt={vehicleTitle} />
+      <div class="vehicle-gallery">
+        {vehicleImages.map((image, index) => (
+          <img class="card" src={image} alt={`${vehicleTitle} - photo ${index + 1}`} loading={index === 0 ? "eager" : "lazy"} />
+        ))}
+      </div>
       <div>
         <h2>Informations de vente</h2>
         <dl class="vehicle-details">
@@ -66,10 +71,27 @@ const vehicleTitle = formatVehicleTitle(vehicle);
     margin: 0;
   }
 
+  .vehicle-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-self: start;
+  }
+
+  .vehicle-gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
   @media (max-width: 720px) {
     .vehicle-details {
       grid-template-columns: 1fr;
       gap: 2px;
+    }
+
+    .vehicle-gallery {
+      grid-template-columns: 1fr;
     }
   }
 </style>

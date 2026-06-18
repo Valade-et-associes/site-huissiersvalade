@@ -72,12 +72,12 @@ async function createBlob(content, encoding = "utf-8") {
   });
 }
 
-async function commitVehicleChanges({ imagePath, imageBase64, vehiclesJson, message }) {
+async function commitVehicleChanges({ imageFiles, vehiclesJson, message }) {
   const { branch } = githubConfig();
   const ref = await githubApi(`git/ref/heads/${encodeURIComponent(branch)}`);
   const parentSha = ref.object.sha;
   const parentCommit = await githubApi(`git/commits/${parentSha}`);
-  const imageBlob = await createBlob(imageBase64, "base64");
+  const imageBlobs = await Promise.all(imageFiles.map((imageFile) => createBlob(imageFile.base64, "base64")));
   const vehiclesBlob = await createBlob(vehiclesJson);
 
   const tree = await githubApi("git/trees", {
@@ -85,12 +85,12 @@ async function commitVehicleChanges({ imagePath, imageBase64, vehiclesJson, mess
     body: JSON.stringify({
       base_tree: parentCommit.tree.sha,
       tree: [
-        {
-          path: imagePath,
+        ...imageFiles.map((imageFile, index) => ({
+          path: imageFile.path,
           mode: "100644",
           type: "blob",
-          sha: imageBlob.sha
-        },
+          sha: imageBlobs[index].sha
+        })),
         {
           path: "src/data/vehicles.json",
           mode: "100644",
@@ -127,15 +127,25 @@ export async function handler(event) {
       return json(401, { error: "Mot de passe invalide." });
     }
 
-    const required = ["brand", "model", "year", "vin", "dossier", "keyStatus", "offerDeadline", "bailiffEmail", "imageData"];
+    const required = ["brand", "model", "year", "vin", "dossier", "keyStatus", "offerDeadline", "bailiffEmail"];
     for (const field of required) {
       if (!data[field]) return json(400, { error: `Champ manquant: ${field}` });
     }
+    if (!Array.isArray(data.imageDataList) || data.imageDataList.length !== 4) {
+      return json(400, { error: "Veuillez ajouter exactement 4 images." });
+    }
 
     const baseSlug = slugify(`${data.brand}-${data.model}-${data.year}-${data.dossier}`);
-    const { extension, base64 } = decodeDataUrl(data.imageData);
-    const imagePath = `public/wp-content/uploads/vehicles/${baseSlug}.${extension}`;
-    const imageUrl = `/wp-content/uploads/vehicles/${baseSlug}.${extension}`;
+    const imageFiles = data.imageDataList.map((imageData, index) => {
+      const { extension, base64 } = decodeDataUrl(imageData);
+      const number = index + 1;
+      return {
+        path: `public/wp-content/uploads/vehicles/${baseSlug}-${number}.${extension}`,
+        url: `/wp-content/uploads/vehicles/${baseSlug}-${number}.${extension}`,
+        base64
+      };
+    });
+    const imageUrls = imageFiles.map((imageFile) => imageFile.url);
 
     const file = await getGithubFile("src/data/vehicles.json");
     const vehicles = JSON.parse(Buffer.from(file.content, "base64").toString("utf8"));
@@ -159,12 +169,12 @@ export async function handler(event) {
       keyStatus: String(data.keyStatus).toUpperCase(),
       offerDeadline: String(data.offerDeadline),
       bailiffEmail: String(data.bailiffEmail).toLowerCase(),
-      image: imageUrl
+      image: imageUrls[0],
+      images: imageUrls
     });
 
     await commitVehicleChanges({
-      imagePath,
-      imageBase64: base64,
+      imageFiles,
       vehiclesJson: `${JSON.stringify(vehicles, null, 2)}\n`,
       message: `Add vehicle ${data.dossier}`
     });

@@ -12,6 +12,7 @@ export interface Vehicle {
   offerDeadline: string;
   bailiffEmail: string;
   image: string;
+  images?: string[];
 }
 
 export const vehicles = vehicleData as Vehicle[];

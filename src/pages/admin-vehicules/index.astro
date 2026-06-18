@@ -2,37 +2,40 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 <BaseLayout
-  title="Administration des véhicules - Valade et associés"
-  description="Formulaire privé d'ajout de véhicule pour les huissiers de Valade et associés."
+  title="Administration des vehicules - Valade et associes"
+  description="Formulaire prive d'ajout de vehicule pour les huissiers de Valade et associes."
   canonical="/admin-vehicules/"
   robots="noindex, nofollow"
 >
   <section class="section">
     <div class="wrap narrow">
       <p class="eyebrow">Administration</p>
-      <h1>Ajouter un véhicule</h1>
-      <p class="lead">Ce formulaire ajoute un véhicule à la liste publique et au formulaire d'offre après le prochain déploiement Netlify.</p>
+      <h1>Ajouter un vehicule</h1>
+      <p class="lead">Ce formulaire ajoute un vehicule a la liste publique et au formulaire d'offre apres le prochain deploiement Netlify.</p>
 
       <form class="admin-form" id="vehicle-admin-form">
         <label>Mot de passe administrateur<input type="password" name="password" autocomplete="current-password" required /></label>
         <label>Courriel de l'huissier responsable<input type="email" name="bailiffEmail" autocomplete="email" required /></label>
 
         <div class="form-grid">
-          <label>Marque<input type="text" name="brand" placeholder="TOYOTA" required /></label>
-          <label>Modèle<input type="text" name="model" placeholder="SIENNA" required /></label>
+          <label>Marque<input type="text" name="brand" required /></label>
+          <label>Modele<input type="text" name="model" required /></label>
         </div>
 
         <div class="form-grid">
-          <label>Année<input type="text" name="year" placeholder="2004" required /></label>
-          <label>Dossier<input type="text" name="dossier" placeholder="26-995" required /></label>
+          <label>Annee<input type="text" name="year" required /></label>
+          <label>Dossier<input type="text" name="dossier" required /></label>
         </div>
 
-        <label>Numéro d'identification du véhicule<input type="text" name="vin" placeholder="5TDZA23C345018534" required /></label>
-        <label>Clef du véhicule<input type="text" name="keyStatus" placeholder="NON-DISPONIBLE" required /></label>
-        <label>Date et heure limite pour la réception des offres<input type="text" name="offerDeadline" placeholder="09 JUILLET 2026, 12h00." required /></label>
-        <label>Image du véhicule<input type="file" name="imageFile" accept="image/png,image/jpeg,image/webp" required /></label>
+        <label>Numero d'identification du vehicule<input type="text" name="vin" required /></label>
+        <label class="toggle-field">
+          <span>Clef du vehicule disponible</span>
+          <input type="checkbox" name="keyAvailable" value="DISPONIBLE" />
+        </label>
+        <label>Date et heure limite pour la reception des offres<input type="datetime-local" name="offerDeadline" required /></label>
+        <label>Images du vehicule<input type="file" name="imageFiles" accept="image/png,image/jpeg,image/webp" multiple required /></label>
 
-        <button class="button" type="submit">Ajouter le véhicule</button>
+        <button class="button" type="submit">Ajouter le vehicule</button>
         <p class="form-status" id="vehicle-admin-status" role="status"></p>
       </form>
     </div>
@@ -49,24 +52,31 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     status.textContent = "Envoi en cours...";
     const data = new FormData(form);
-    const imageFile = data.get("imageFile");
+    const imageInput = form.elements.namedItem("imageFiles");
+    const imageFiles = imageInput instanceof HTMLInputElement && imageInput.files
+      ? Array.from(imageInput.files)
+      : [];
 
-    if (!(imageFile instanceof File) || imageFile.size === 0) {
-      status.textContent = "Veuillez choisir une image.";
+    if (imageFiles.length !== 4) {
+      status.textContent = "Veuillez choisir exactement 4 images.";
       return;
     }
 
-    const imageData = await new Promise((resolve, reject) => {
+    const readImage = (imageFile) => new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.addEventListener("load", () => resolve(reader.result));
       reader.addEventListener("error", () => reject(reader.error));
       reader.readAsDataURL(imageFile);
     });
+    const imageDataList = await Promise.all(imageFiles.map((file) => readImage(file)));
 
     const payload = Object.fromEntries(data.entries());
-    delete payload.imageFile;
-    payload.imageData = imageData;
-    payload.imageName = imageFile.name;
+    delete payload.imageFiles;
+    payload.keyStatus = data.get("keyAvailable") === "DISPONIBLE" ? "DISPONIBLE" : "NON-DISPONIBLE";
+    delete payload.keyAvailable;
+    payload.offerDeadline = formatOfferDeadline(String(payload.offerDeadline || ""));
+    payload.imageDataList = imageDataList;
+    payload.imageNames = imageFiles.map((file) => file.name);
 
     try {
       const response = await fetch("/.netlify/functions/add-vehicle", {
@@ -76,17 +86,44 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       });
       const contentType = response.headers.get("content-type") || "";
       if (!contentType.includes("application/json")) {
-        throw new Error("La fonction Netlify add-vehicle n'est pas disponible. Testez cette page sur le site Netlify déployé ou avec netlify dev, pas avec astro dev.");
+        throw new Error("La fonction Netlify add-vehicle n'est pas disponible. Testez cette page sur le site Netlify deploye ou avec netlify dev, pas avec astro dev.");
       }
 
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Erreur inconnue.");
-      status.textContent = "Véhicule ajouté. Netlify va redéployer le site dans quelques instants.";
+      status.textContent = "Vehicule ajoute. Netlify va redeployer le site dans quelques instants.";
       form.reset();
     } catch (error) {
-      status.textContent = error instanceof Error ? error.message : "Impossible d'ajouter le véhicule.";
+      status.textContent = error instanceof Error ? error.message : "Impossible d'ajouter le vehicule.";
     }
   });
+
+  function formatOfferDeadline(value) {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+
+    const months = [
+      "JANVIER",
+      "FEVRIER",
+      "MARS",
+      "AVRIL",
+      "MAI",
+      "JUIN",
+      "JUILLET",
+      "AOUT",
+      "SEPTEMBRE",
+      "OCTOBRE",
+      "NOVEMBRE",
+      "DECEMBRE"
+    ];
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${day} ${month} ${year}, ${hours}h${minutes}`;
+  }
 </script>
 
 <style>
@@ -109,6 +146,23 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     padding: 12px;
     font: inherit;
     font-weight: 400;
+  }
+
+  .toggle-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px;
+  }
+
+  .toggle-field input {
+    width: 46px;
+    height: 24px;
+    flex: 0 0 auto;
+    accent-color: var(--blue);
   }
 
   .form-grid {
