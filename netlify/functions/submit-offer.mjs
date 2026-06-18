@@ -1,11 +1,8 @@
-import { createRequire } from "node:module";
+import vehicles from "../../src/data/vehicles.json";
 import { loadLocalEnv } from "./_env.mjs";
 import { sendGraphMail } from "./_graph-mail.mjs";
 
 loadLocalEnv();
-
-const require = createRequire(import.meta.url);
-const vehicles = require("../../src/data/vehicles.json");
 
 function json(status, body) {
   return {
