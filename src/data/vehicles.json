@@ -1,5 +1,24 @@
 [
   {
+    "title": "BMW TEST 2003 (42-761)",
+    "slug": "bmw-test-2003-42-761",
+    "brand": "BMW",
+    "model": "TEST",
+    "year": "2003",
+    "vin": "2534GTD23453DA45",
+    "dossier": "42-761",
+    "keyStatus": "DISPONIBLE",
+    "offerDeadline": "22 JUILLET 2026, 16h40",
+    "bailiffEmail": "mlegac@valade.net",
+    "image": "/wp-content/uploads/vehicles/bmw-test-2003-42-761-1.jpg",
+    "images": [
+      "/wp-content/uploads/vehicles/bmw-test-2003-42-761-1.jpg",
+      "/wp-content/uploads/vehicles/bmw-test-2003-42-761-2.jpg",
+      "/wp-content/uploads/vehicles/bmw-test-2003-42-761-3.jpg",
+      "/wp-content/uploads/vehicles/bmw-test-2003-42-761-4.jpg"
+    ]
+  },
+  {
     "title": "TOYOTA TEST 2015 (56-126)",
     "slug": "toyota-test-2015-56-126",
     "brand": "TOYOTA",
