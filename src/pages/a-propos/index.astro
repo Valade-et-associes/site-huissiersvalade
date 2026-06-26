@@ -4,13 +4,13 @@ import { assets, values } from "../../data/site";
 ---
 <BaseLayout
   title="À propos - Valade et associés"
-  description="Les valeurs, lâ€™histoire, le territoire desservi et les dirigeants de Valade et associÃ©s, huissiers de justice Ã  MontrÃ©al."
+  description="Les valeurs, l’histoire, le territoire desservi et les dirigeants de Valade et associés, huissiers de justice à Montréal."
 >
-  <section class="section alt">
+  <section class="section about-hero" style={`--about-hero-image: url('${assets.aboutHero}')`}>
     <div class="wrap narrow">
       <p class="eyebrow">À propos</p>
-      <h1>Les valeurs et engagements de Valade et associÃ©s</h1>
-      <p class="lead">Une firme dâ€™huissiers de justice de grande envergure agissant dans lâ€™intÃ©rÃªt commun des justiciables tout en veillant rigoureusement au respect des lois applicables.</p>
+      <h1>Les valeurs et engagements de Valade et associés</h1>
+      <p class="lead">Une firme d’huissiers de justice de grande envergure agissant dans l’intérêt commun des justiciables tout en veillant rigoureusement au respect des lois applicables.</p>
     </div>
   </section>
 
@@ -21,58 +21,138 @@ import { assets, values } from "../../data/site";
   </section>
 
   <section class="section alt">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">De 1989 Ã  aujourdâ€™hui</p>
-        <h2>Une rÃ©putation forgÃ©e au fil des mandats</h2>
-      </div>
-      <div>
-        <p>Lâ€™histoire de notre firme remonte Ã  presque trois dÃ©cennies et est nÃ©e de lâ€™ambition professionnelle de Luc Valade, huissier de justice.</p>
-        <p>Au fil des annÃ©es, nous nous sommes forgÃ©s une solide rÃ©putation auprÃ¨s de nos clients, tant au niveau de la signification, de lâ€™exÃ©cution des jugements que des constats.</p>
-        <p>Nous avons constamment su diversifier et amÃ©liorer nos services en fonction des nouvelles rÃ©alitÃ©s de notre profession, des nouveaux enjeux du marchÃ© et des besoins de nos clients.</p>
-        <p>InspirÃ©s par les accomplissements du passÃ©, carburant Ã  lâ€™adrÃ©naline du moment prÃ©sent, notre vision est tournÃ©e vers un futur optimiste, caractÃ©risÃ© par la relÃ¨ve et la pÃ©rennitÃ©.</p>
-      </div>
+    <div class="wrap history-block">
+      <p class="eyebrow">De 1989 à aujourd’hui</p>
+      <p>L’histoire de notre firme remonte à presque trois décennies et est née de l’ambition professionnelle de Luc Valade, huissier de justice. Au fil des années, nous nous sommes forgés une solide réputation auprès de nos clients, tant au niveau de la signification, de l’exécution des jugements que des constats. Au fil des années, nous avons constamment su diversifier et améliorer nos services en fonction des nouvelles réalités de notre profession, des nouveaux enjeux du marché et des besoins de nos clients.</p>
+      <p>Inspirés par les accomplissements du passé, carburant à l’adrénaline du moment présent, notre vision est tournée vers un futur optimiste, caractérisé par la relève et la pérennité.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap split">
       <div>
-        <h2>Lâ€™Ã©tendue de nos services</h2>
-        <p>Nos huissiers de justice Ã©tendent leur expertise bien au-delÃ  des frontiÃ¨res de MontrÃ©al. Le territoire desservi directement par nos huissiers compte prÃ¨s de 250 municipalitÃ©s en pÃ©riphÃ©rie du Grand MontrÃ©al.</p>
-        <p>GrÃ¢ce Ã  leur rÃ©seau de contacts et aux conventions internationales, nos huissiers sont aussi en mesure de faire signifier un acte de procÃ©dure presque nâ€™importe oÃ¹ sur la planÃ¨te.</p>
+        <h2>L’étendue de nos services</h2>
+        <p>Nos huissiers de justice étendent leur expertise bien au-delà des frontières de Montréal. Le territoire desservi directement par nos huissiers compte près de 250 municipalités en périphérie du Grand Montréal.</p>
+        <p>Grâce à leur réseau de contacts et aux conventions internationales, nos huissiers sont aussi en mesure de faire signifier un acte de procédure presque n’importe où sur la planète.</p>
         <div class="actions">
-          <a class="button" href="/wp-content/uploads/2017/07/liste_des_municipalite_2017.pdf">Liste des municipalitÃ©s</a>
+          <a class="button" href="/wp-content/uploads/2017/07/liste_des_municipalite_2017.pdf">Liste des municipalités</a>
           <a class="button outline" href="/services-et-tarifs/">Consulter nos services</a>
         </div>
       </div>
-      <img src={assets.map} alt="Carte du territoire desservi par Valade et associÃ©s" loading="lazy" />
+      <img src={assets.map} alt="Carte du territoire desservi par Valade et associés" loading="lazy" />
     </div>
   </section>
 
   <section class="section alt">
     <div class="wrap">
       <p class="eyebrow">Les dirigeants</p>
-      <h2>Une direction engagÃ©e</h2>
-      <div class="grid two">
-        <article class="card media-card flush">
+      <h2>Une direction engagée</h2>
+      <div class="leaders-grid">
+        <article class="leader-profile">
           <img src={assets.luc} alt="Luc Valade" loading="lazy" />
-          <div class="card-body">
-            <h3>Luc Valade, huissier de justice #677</h3>
-            <p><strong>PrÃ©sident et fondateur</strong></p>
-            <ul class="list"><li>ExpÃ©rience de plus de 43 ans comme huissier de justice.</li><li>ExpÃ©rience de prÃ¨s de 36 ans comme dirigeant dâ€™entreprise.</li><li>PrÃ©sident du ComitÃ© directeur de la Chambre des huissiers de justice du QuÃ©bec sur le nouveau Code de procÃ©dure civile.</li></ul>
-          </div>
+          <h3>Luc Valade, huissier de justice #677</h3>
+          <p class="leader-role">Président et fondateur</p>
+          <p>Expérience de plus de 43 ans comme huissier de justice. Expérience de près de 36 ans comme dirigeant d’entreprise. Président du Comité directeur de la Chambre des huissiers de justice du Québec sur le nouveau Code de procédure civile.</p>
         </article>
-        <article class="card media-card flush">
+        <article class="leader-profile">
           <img src={assets.charles} alt="Charles Valade" loading="lazy" />
-          <div class="card-body">
-            <h3>Charles Valade, huissier de justice #1094, B.Sc. Act.</h3>
-            <p><strong>Vice-prÃ©sident, DÃ©veloppement des affaires</strong></p>
-            <ul class="list"><li>Expertise en dÃ©veloppement des affaires et relation avec la clientÃ¨le.</li><li>Responsable de lâ€™optimisation et de la conformitÃ© des processus dâ€™affaires.</li><li>Connaissances approfondies des finances et de la gestion du risque.</li></ul>
-          </div>
+          <h3>Charles Valade, huissier de justice #1094, B.Sc. Act.</h3>
+          <p class="leader-role">Vice-président, Développement des affaires</p>
+          <p>Expertise en développement des affaires et dans la relation avec la clientèle. Responsable de l’optimisation et de la conformité des processus d’affaires. Connaissances approfondies des finances et de la gestion du risque.</p>
         </article>
       </div>
     </div>
   </section>
 </BaseLayout>
 
+<style>
+  .about-hero {
+    min-height: 520px;
+    display: grid;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .64) 72%, rgba(245, 247, 250, .34) 100%),
+      var(--about-hero-image) center / cover no-repeat;
+  }
+
+  .about-hero .wrap {
+    width: 100%;
+  }
+
+  .history-block {
+    max-width: 1040px;
+  }
+
+  .history-block .eyebrow {
+    margin-bottom: 38px;
+    text-align: center;
+    color: var(--charcoal);
+    font-size: 18px;
+  }
+
+  .history-block p:not(.eyebrow) {
+    color: var(--charcoal);
+    font-size: clamp(17px, 1.7vw, 19px);
+    line-height: 1.55;
+  }
+
+  .history-block p:not(.eyebrow) + p:not(.eyebrow) {
+    margin-top: 24px;
+  }
+
+  .leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(42px, 9vw, 120px);
+    margin-top: 34px;
+  }
+
+  .leader-profile {
+    text-align: center;
+  }
+
+  .leader-profile img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .leader-profile h3 {
+    margin-bottom: 10px;
+    color: var(--blue);
+    font-size: clamp(18px, 1.9vw, 22px);
+    text-transform: uppercase;
+  }
+
+  .leader-role {
+    margin: 0 0 24px;
+    color: var(--muted);
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .leader-profile p:not(.leader-role) {
+    margin: 0 auto;
+    max-width: 620px;
+    color: var(--charcoal);
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 720px) {
+    .about-hero {
+      min-height: 460px;
+      background:
+        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
+        var(--about-hero-image) center / cover no-repeat;
+    }
+
+    .leaders-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+</style>

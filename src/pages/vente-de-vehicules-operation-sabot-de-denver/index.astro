@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { assets } from "../../data/site";
 import { formatVehicleTitle, vehicles } from "../../data/vehicles";
 ---
 <BaseLayout
   title="Vente de véhicules - Opération sabot de Denver - Valade et associés"
   description="Véhicules faisant l'objet d'une vente sous contrôle de justice de gré à gré dans le cadre de l'opération sabot de Denver."
 >
-  <section id="offre" class="section alt">
+  <section id="offre" class="section sales-hero" style={`--sales-hero-image: url('${assets.salesHero}')`}>
     <div class="wrap narrow">
       <p class="eyebrow">Ventes sabots</p>
       <h1>Vente de véhicules - Opération sabot de Denver</h1>
@@ -14,19 +15,39 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap split">
-      <div>
+  <section class="section instructions-section">
+    <div class="wrap">
+      <div class="instructions-heading">
+        <p class="eyebrow">À lire avant de déposer une offre</p>
         <h2>Instructions aux acheteurs potentiels</h2>
-        <p>Si vous souhaitez participer à la vente d'un ou de plusieurs véhicules, vous devez utiliser le formulaire d'offre ci-dessous et suivre les instructions correspondantes.</p>
-        <p>Les véhicules sont entreposés à la fourrière de Remorquage Météor, située au 9405, boulevard St-Michel, Montréal (Québec) H1Z 4G9.</p>
-        <p>Les acheteurs potentiels peuvent se rendre au site les mercredis précédant la vente sous contrôle de justice, de 13 h à 15 h, afin de voir le véhicule mis en vente.</p>
+        <p>Les véhicules sont vendus sous contrôle de justice, de gré à gré. Pour participer, utilisez le formulaire d’offre ci-dessous et respectez les conditions liées à chaque véhicule.</p>
       </div>
-      <div class="notice">
-        <h3>Conditions de vente</h3>
-        <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. Elles sont effectuées sans aucune garantie légale, aux risques et périls de l'acheteur.</p>
-        <p>L'adjudicataire retenu doit transmettre le paiement dans l'heure suivant l'adjudication, par virement Interac à virements@valade.net.</p>
-        <p>Le véhicule doit être récupéré la journée même avant 16 h, autrement des frais quotidiens d'entreposage peuvent s'appliquer.</p>
+      <div class="instructions-grid">
+        <article class="instruction-card featured">
+          <span class="instruction-number">01</span>
+          <h3>Faire une offre</h3>
+          <p>Choisissez le véhicule visé, remplissez vos coordonnées et soumettez le montant de votre offre en dollars canadiens.</p>
+        </article>
+        <article class="instruction-card">
+          <span class="instruction-number">02</span>
+          <h3>Voir les véhicules</h3>
+          <p>Les véhicules sont entreposés chez Remorquage Météor, au 9405, boulevard St-Michel, Montréal (Québec) H1Z 4G9.</p>
+          <p>Les visites sont possibles les mercredis précédant la vente, de 13 h à 15 h.</p>
+        </article>
+        <article class="instruction-card">
+          <span class="instruction-number">03</span>
+          <h3>Vente et adjudication</h3>
+          <p>Les ventes ont lieu les mardi et jeudi de chaque semaine à 11 h. L’adjudicataire retenu est contacté après l’expiration de la date limite.</p>
+        </article>
+        <article class="instruction-card warning">
+          <span class="instruction-number">04</span>
+          <h3>Conditions importantes</h3>
+          <p>Les ventes sont effectuées sans garantie légale, aux risques et périls de l’acheteur. L’offre retenue doit être commercialement raisonnable au sens de l’article 761 C.p.c.</p>
+        </article>
+      </div>
+      <div class="payment-note">
+        <strong>Paiement et récupération</strong>
+        <p>L’adjudicataire doit transmettre le paiement dans l’heure suivant l’adjudication par virement Interac à <a href="mailto:virements@valade.net">virements@valade.net</a>. Une fois le paiement et le contrat signé reçus, le véhicule est libéré. Le véhicule doit être récupéré la journée même avant 16 h, sinon des frais d’entreposage quotidiens de 28.74 $ peuvent être facturés par Remorquage Météor.</p>
       </div>
     </div>
   </section>
@@ -114,6 +135,109 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
 </BaseLayout>
 
 <style>
+  .sales-hero {
+    min-height: 520px;
+    display: grid;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .62) 72%, rgba(245, 247, 250, .26) 100%),
+      var(--sales-hero-image) center right / cover no-repeat;
+  }
+
+  .sales-hero .wrap {
+    width: 100%;
+  }
+
+  .sales-hero .lead {
+    max-width: 760px;
+  }
+
+  .instructions-section {
+    background: #fff;
+  }
+
+  .instructions-heading {
+    max-width: 820px;
+    margin-bottom: 32px;
+  }
+
+  .instructions-heading p:last-child {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .instruction-card,
+  .payment-note {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--paper);
+    padding: 24px;
+    box-shadow: 0 12px 24px rgba(21, 38, 80, .06);
+  }
+
+  .instruction-card.featured {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .instruction-card.warning {
+    border-color: rgba(242, 197, 16, .55);
+    background: rgba(242, 197, 16, .12);
+  }
+
+  .instruction-number {
+    display: inline-flex;
+    margin-bottom: 18px;
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .instruction-card h3 {
+    margin-bottom: 12px;
+    font-size: 21px;
+  }
+
+  .instruction-card.featured h3,
+  .instruction-card.featured p {
+    color: #fff;
+  }
+
+  .instruction-card p {
+    margin: 0;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  .instruction-card p + p {
+    margin-top: 10px;
+  }
+
+  .payment-note {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+    background: #fff;
+  }
+
+  .payment-note strong {
+    color: var(--navy);
+    font-size: 18px;
+  }
+
+  .payment-note p {
+    margin: 0;
+    color: var(--charcoal);
+    line-height: 1.55;
+  }
+
   .offer-form {
     display: grid;
     gap: 16px;
@@ -158,8 +282,25 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   }
 
   @media (max-width: 720px) {
+    .sales-hero {
+      min-height: 460px;
+      background:
+        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
+        var(--sales-hero-image) center / cover no-repeat;
+    }
+
+    .instructions-grid {
+      grid-template-columns: 1fr;
+    }
+
     .form-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 721px) and (max-width: 1100px) {
+    .instructions-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

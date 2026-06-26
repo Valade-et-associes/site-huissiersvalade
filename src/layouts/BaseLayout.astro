@@ -58,7 +58,7 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
     <header class="site-header">
       <div class="header-main">
         <a class="brand" href="/" aria-label="Accueil Valade et associés">
-          <img src={assets.logo} alt="Valade et associés" width="442" height="100" />
+          <img src={assets.logoLight} alt="Valade et associés" width="442" height="100" />
         </a>
         <nav class="nav" aria-label="Navigation principale">
           {nav.map((item) => (
@@ -141,6 +141,30 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
   h3 { font-size: 22px; }
   p { margin: 0 0 16px; }
   .lead { color: var(--muted); font-size: clamp(18px, 2vw, 22px); max-width: 820px; }
+  .mission-intro { background: #fff; }
+  .mission-intro .narrow { max-width: 930px; }
+  .mission-intro h2 {
+    max-width: 880px;
+    margin: 0 auto 38px;
+    color: #454545;
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.08;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+  .mission-copy {
+    color: #454545;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .mission-copy p { margin-bottom: 22px; }
+  .mission-copy a {
+    color: var(--blue);
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .mission-copy a:hover { color: var(--gold); }
 
   .hero { min-height: 670px; display: grid; align-items: center; color: #fff; background: linear-gradient(90deg, rgba(15,28,67,.88), rgba(23,40,91,.62), rgba(23,40,91,.22)), var(--hero-image) center/cover; padding: clamp(72px, 10vw, 130px) clamp(18px, 4vw, 56px); }
   .hero h1, .hero .eyebrow { color: #fff; }

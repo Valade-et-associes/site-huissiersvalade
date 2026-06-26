@@ -9,7 +9,6 @@ import { assets, businessServices, posts, site, stats } from "../data/site";
 >
   <section class="hero" style={`--hero-image: url('${assets.heroDocument}')`}>
     <div class="hero-content">
-      <p class="eyebrow">Documents du Tribunal administratif du logement en main?</p>
       <h1>Expérience, professionnalisme et excellence</h1>
       <p class="lead">Une équipe solide d’huissiers de justice orientée vers le progrès. Vous souhaitez signifier un document, saisir les actifs de votre débiteur ou expulser votre locataire? Vous êtes au bon endroit.</p>
       <div class="actions">
@@ -22,17 +21,13 @@ import { assets, businessServices, posts, site, stats } from "../data/site";
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">Huissiers de justice du Grand Montréal</p>
-        <h2>Vos mandats, notre mission</h2>
-        <p class="lead">Au service des cabinets d’avocats, propriétaires, gestionnaires d’immeubles, particuliers, notaires, contentieux et organisations québécoises depuis 1989.</p>
-      </div>
-      <div>
-        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, le rôle de notre équipe est d’analyser, d’agir et de résoudre.</p>
-        <p>Les mandats entrepris par nos huissiers sont toujours réalisés dans l’intérêt de tous les intervenants au conflit litigieux. Notre engagement se traduit par une union équilibrée entre l’impartialité professionnelle et le dévouement d’une équipe ayant à coeur les enjeux de ses clients.</p>
+  <section class="section mission-intro">
+    <div class="wrap narrow">
+      <h2>Huissiers de justice du Grand Montréal au service des cabinets d’avocats, des propriétaires et gestionnaires d’immeubles, des particuliers, des notaires, des contentieux et de nombreuses organisations québécoises depuis 1989.</h2>
+      <div class="mission-copy">
+        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, le rôle de <a href="/a-propos/">notre équipe</a> est d’analyser, d’agir et de résoudre. Les mandats entrepris par nos huissiers sont toujours réalisés dans l’intérêt de tous les intervenants au conflit litigieux. L’engagement de Valade et associés, huissiers de justice, se traduit par une union équilibrée entre l’impartialité professionnelle et le dévouement d’une équipe ayant à coeur les divers enjeux de ses clients.</p>
         <p>Notre mission est d’offrir rien de moins que les meilleurs services d’huissiers tout en respectant à la lettre les cadres législatifs et réglementaires régissant notre profession.</p>
+        <p>Valade et associés est une firme d’huissiers de justice établie dans le Vieux Montréal depuis près de trois décennies. <a href="/services-et-tarifs/">La gamme de services</a> offerts est variée et personnalisée pour tous les types de besoins : signification de procédures, saisie de biens (exécution de jugement), expulsion de locataires ou encore constat d’huissier de justice.</p>
       </div>
     </div>
   </section>
@@ -70,25 +65,6 @@ import { assets, businessServices, posts, site, stats } from "../data/site";
         <p>Dotés d’une riche expérience et d’une réputation enviable, les huissiers de justice de Valade et associés sont en mesure de prodiguer conseils et recommandations à l’égard de vos questionnements procéduraux.</p>
         <p>Si vous êtes confus par rapport à nos services ou à notre tarification, il nous fera plaisir de répondre à vos questions.</p>
       </article>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap">
-      <p class="eyebrow">Notre blogue</p>
-      <h2>Actualités et nouvelles</h2>
-      <div class="grid two">
-        {posts.map((post) => (
-          <article class="card media-card flush">
-            <img src={post.image} alt="" loading="lazy" />
-            <div class="card-body">
-              <p><span class="badge">{post.date}</span></p>
-              <h3><a href={post.href}>{post.title}</a></h3>
-              <p>{post.excerpt}</p>
-            </div>
-          </article>
-        ))}
-      </div>
     </div>
   </section>
 </BaseLayout>

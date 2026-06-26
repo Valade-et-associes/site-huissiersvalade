@@ -226,9 +226,8 @@ const personalServices = [
   title="Services et tarifs - Valade et associés"
   description="Services d'huissiers pour entreprises et particuliers: signification, exécution de jugement, constats, services connexes et tarification."
 >
-  <section class="services-intro">
-    <div class="intro-image" style={`background-image: url(${assets.heroDocument});`}></div>
-    <div class="wrap narrow intro-content">
+  <section class="section services-hero" style={`--services-hero-image: url('${assets.servicesHero}')`}>
+    <div class="wrap narrow">
       <h1>Des services d'huissiers pour tous</h1>
       <p class="lead">Chez Valade et associés, huissiers de justice, nous vous proposons une gamme complète de services pour tous les types de besoins.</p>
       <div class="service-jumps" aria-label="Accès rapide aux domaines de services">
@@ -287,9 +286,17 @@ const personalServices = [
         <h2>Des honoraires encadrés</h2>
       </div>
       <div>
-        <p>Les services professionnels rendus par les huissiers de justice sont tarifés par le Tarif d'honoraires des huissiers de justice. Pour les services connexes, les huissiers peuvent également convenir d'une tarification extrajudiciaire en vertu du Tarif d'honoraires professionnels.</p>
-        <div class="grid two">
-          {tariffs.map((tariff) => <a class="card" href={tariff.href}><h3>{tariff.title}</h3><p>Télécharger le PDF</p></a>)}
+        <p>Les services professionnels rendus par les huissiers de justice sont tarifés par le Tarif d’honoraires des huissiers de justice. Ainsi, les huissiers de justice ont le devoir professionnel de respecter et d’appliquer ce règlement. D’autre part, pour les services connexes rendus à leurs clients, les huissiers peuvent convenir d’une tarification extrajudiciaire en vertu du Tarif d’honoraires professionnels (T.H.P.). Vous trouverez également ci-dessus un document présentant quelques exemples concrets de tarification de mandats d’huissiers qui nous sont fréquemment confiés.</p>
+        <div class="tariff-downloads">
+          {tariffs.map((tariff) => (
+            <a class="tariff-card" href={tariff.href} download>
+              <span class="tariff-card-main">
+                <img src={assets.pdfIcon} alt="" loading="lazy" />
+                <span>{tariff.title}</span>
+              </span>
+              <span class="tariff-card-action">Télécharger</span>
+            </a>
+          ))}
         </div>
       </div>
     </div>
@@ -297,32 +304,21 @@ const personalServices = [
 </BaseLayout>
 
 <style>
-  .services-intro {
-    background: var(--white);
-    text-align: center;
+  .services-hero {
+    min-height: 520px;
+    display: grid;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .64) 72%, rgba(245, 247, 250, .34) 100%),
+      var(--services-hero-image) center / cover no-repeat;
   }
 
-  .intro-image {
-    min-height: 118px;
-    background-position: center;
-    background-size: cover;
-    opacity: .58;
+  .services-hero .wrap {
+    width: 100%;
   }
 
-  .intro-content {
-    padding: clamp(56px, 7vw, 74px) 18px;
-  }
-
-  .intro-content h1 {
-    margin-left: auto;
-    margin-right: auto;
-    font-size: clamp(28px, 4vw, 36px);
-    text-transform: uppercase;
-  }
-
-  .intro-content .lead {
-    margin-left: auto;
-    margin-right: auto;
+  .services-hero .lead {
+    max-width: 760px;
   }
 
   .service-jumps {
@@ -440,6 +436,82 @@ const personalServices = [
     border-top: 1px solid var(--line);
   }
 
+  .tariff-downloads {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 30px;
+  }
+
+  .tariff-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 118px;
+    padding: 18px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #385695 0%, #2f4d89 100%);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(21, 38, 80, .14);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+
+  .tariff-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px rgba(21, 38, 80, .2);
+  }
+
+  .tariff-card:nth-child(2) {
+    background: linear-gradient(135deg, #f2c510 0%, #e2b708 100%);
+  }
+
+  .tariff-card-main {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.28;
+  }
+
+  .tariff-card-main img {
+    width: 74px;
+    height: 74px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    padding: 14px;
+    border-radius: 6px;
+    background: rgba(18, 34, 76, .32);
+  }
+
+  .tariff-card-action {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    min-width: 142px;
+    min-height: 48px;
+    padding: 12px 18px;
+    border-radius: 4px;
+    background: #223f79;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tariff-card:nth-child(2) .tariff-card-main img {
+    background: rgba(132, 102, 0, .22);
+  }
+
+  .tariff-card:nth-child(2) .tariff-card-action {
+    background: #cfa800;
+  }
+
   @media (max-width: 1100px) {
     .services-board {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -447,6 +519,13 @@ const personalServices = [
   }
 
   @media (max-width: 680px) {
+    .services-hero {
+      min-height: 460px;
+      background:
+        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
+        var(--services-hero-image) center / cover no-repeat;
+    }
+
     .services-board {
       grid-template-columns: 1fr;
       padding: 22px;
@@ -455,6 +534,19 @@ const personalServices = [
     .jump-button {
       width: 100%;
       max-width: 260px;
+    }
+
+    .tariff-downloads {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tariff-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .tariff-card-action {
+      width: 100%;
     }
   }
 </style>
