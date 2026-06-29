@@ -155,11 +155,12 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   }
 
   .instructions-section {
-    background: #fff;
+    background: var(--grid-surface);
+    background-size: var(--grid-size);
   }
 
   .vehicles-section {
-    background: var(--paper);
+    background: linear-gradient(180deg, var(--paper) 0%, #eef2f7 100%);
   }
 
   .vehicles-section .grid.three {
@@ -183,7 +184,8 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   }
 
   .offer-form-section {
-    background: #fff;
+    background: var(--grid-surface);
+    background-size: var(--grid-size);
   }
 
   .instructions-heading {
@@ -275,24 +277,20 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: #fff;
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow);
   }
 
   .offer-form label {
     display: grid;
     gap: 6px;
-    font-weight: 800;
+    font-weight: 900;
   }
 
   .offer-form input,
   .offer-form select,
   .offer-form textarea {
     width: 100%;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 13px 14px;
-    background: #fff;
-    font: inherit;
+    background: var(--paper);
     font-weight: 400;
   }
 
@@ -304,6 +302,20 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
     display: inline-flex;
     align-items: baseline;
     gap: 4px;
+    color: var(--navy);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .offer-form .button {
+    width: 100%;
+    margin-top: 2px;
+    border: 0;
+    background: var(--navy);
+  }
+
+  .offer-form .button:hover {
+    background: var(--blue);
   }
 
   .form-grid {
