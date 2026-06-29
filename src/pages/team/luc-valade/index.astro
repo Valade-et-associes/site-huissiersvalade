@@ -3,14 +3,53 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { assets } from "../../../data/site";
 ---
 <BaseLayout title="Luc Valade - Valade et associés" description="Profil de Luc Valade, huissier de justice, président et fondateur de Valade et associés.">
-  <section class="section">
-    <div class="wrap split">
-      <img class="card" src={assets.luc} alt="Luc Valade" />
+  <section class="section profile-section">
+    <div class="wrap profile-layout">
+      <img src={assets.luc} alt="Luc Valade" />
       <div>
         <p class="eyebrow">Président et fondateur</p>
         <h1>Luc Valade, huissier de justice #677</h1>
-        <p class="lead">Expérience de plus de 43 ans comme huissier de justice et de près de 36 ans comme dirigeant d’entreprise.</p>
+        <p class="lead">Expérience de plus de 43 ans comme huissier de justice et de près de 36 ans comme dirigeant d'entreprise.</p>
+        <div class="actions">
+          <a class="button" href="/a-propos/">Retour à l'équipe</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .profile-section {
+    background: #101816;
+    color: rgba(255,255,255,.78);
+  }
+
+  .profile-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, .42fr) minmax(0, .58fr);
+    gap: clamp(30px, 6vw, 82px);
+    align-items: center;
+  }
+
+  .profile-layout img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .profile-layout h1,
+  .profile-layout .eyebrow {
+    color: #fff;
+  }
+
+  .profile-layout .lead {
+    color: rgba(255,255,255,.78);
+  }
+
+  @media (max-width: 760px) {
+    .profile-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

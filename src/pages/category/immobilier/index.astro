@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { posts } from "../../../data/site";
+import { assets, posts } from "../../../data/site";
 
 const immobilier = posts.filter((post) => post.category === "Immobilier");
 ---
 <BaseLayout title="Immobilier - Valade et associés" description="Articles de Valade et associés dans la catégorie Immobilier.">
-  <section class="section alt">
+  <section class="section page-hero" style={`--page-hero-image: url('${assets.blogLoyers}')`}>
     <div class="wrap narrow">
       <p class="eyebrow">Catégorie</p>
       <h1>Immobilier</h1>

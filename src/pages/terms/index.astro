@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { assets } from "../../data/site";
 ---
 <BaseLayout title="Conditions - Valade et associés" description="Conditions générales et avis de Valade et associés.">
-  <section class="section alt">
+  <section class="section page-hero" style={`--page-hero-image: url('${assets.formsHero}')`}>
     <div class="wrap narrow">
       <p class="eyebrow">Conditions</p>
       <h1>Conditions générales</h1>
