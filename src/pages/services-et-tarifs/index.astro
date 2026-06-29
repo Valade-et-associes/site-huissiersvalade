@@ -238,7 +238,7 @@ const personalServices = [
     </div>
   </section>
 
-  <section id="services-entreprises" class="section alt service-domain">
+  <section id="services-entreprises" class="section service-domain">
     <div class="wrap">
       <p class="eyebrow">Services aux entreprises</p>
       <div class="services-board">
@@ -280,7 +280,7 @@ const personalServices = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section tariff-section">
     <div class="wrap split">
       <div>
         <p class="eyebrow">Mode de tarification</p>
@@ -307,8 +307,7 @@ const personalServices = [
 <style>
   .service-jumps {
     display: flex;
-    justify-content: center;
-    gap: clamp(18px, 6vw, 84px);
+    gap: 12px;
     flex-wrap: wrap;
     margin-top: 34px;
   }
@@ -320,7 +319,7 @@ const personalServices = [
     min-width: 140px;
     min-height: 50px;
     padding: 12px 20px;
-    border-radius: 0;
+    border-radius: var(--radius);
     color: #fff;
     font-weight: 800;
     text-decoration: none;
@@ -340,7 +339,7 @@ const personalServices = [
   }
 
   .service-domain .eyebrow {
-    color: #969ca8;
+    color: var(--blue);
   }
 
   .personal-domain .service-card h2 {
@@ -350,25 +349,28 @@ const personalServices = [
 
   .services-board {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(22px, 4vw, 44px);
-    padding: clamp(24px, 4vw, 44px);
-    background: #fff;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
 
   .service-card {
     min-width: 0;
+    padding: clamp(22px, 3vw, 30px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .service-card h2 {
-    width: fit-content;
-    margin: 0 auto 22px;
-    padding: 14px 10px;
-    border-top: 1px solid var(--blue);
+    width: 100%;
+    margin: 0 0 22px;
+    padding: 0 0 14px;
+    border-top: 0;
     border-bottom: 1px solid var(--blue);
     color: var(--blue);
-    font-size: 20px;
-    text-align: center;
+    font-size: clamp(24px, 3vw, 34px);
+    text-align: left;
   }
 
   .service-card h3 {
@@ -402,16 +404,18 @@ const personalServices = [
   }
 
   .service-list li::before {
-    content: ">";
+    content: "";
     position: absolute;
     left: 0;
-    top: 0;
-    color: var(--blue);
-    font-weight: 800;
+    top: .68em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
   }
 
   .personal-domain .service-list li::before {
-    color: #dba917;
+    background: #dba917;
   }
 
   .service-block + .service-block {
@@ -425,6 +429,10 @@ const personalServices = [
     grid-template-columns: 1fr;
     gap: 18px;
     margin-top: 30px;
+  }
+
+  .tariff-section {
+    background: #fff;
   }
 
   .tariff-card {
@@ -505,7 +513,6 @@ const personalServices = [
   @media (max-width: 680px) {
     .services-board {
       grid-template-columns: 1fr;
-      padding: 22px;
     }
 
     .jump-button {

@@ -5,14 +5,15 @@ import { assets, businessServices, site, stats } from "../data/site";
 <BaseLayout
   title="Accueil - Valade et associés"
   description="Valade et associés, huissiers de justice du Grand Montréal, accompagne cabinets d’avocats, propriétaires, particuliers, notaires, contentieux et organisations québécoises depuis 1989."
-  image={assets.heroDocument}
+  image={assets.homeHero}
 >
-  <section class="hero" style={`--hero-image: url('${assets.heroDocument}')`}>
+  <section class="hero" style={`--hero-image: url(${assets.homeHero})`}>
     <div class="hero-content">
-      <h1>Expérience, professionnalisme et excellence</h1>
-      <p class="lead">Une équipe solide d’huissiers de justice orientée vers le progrès. Vous souhaitez signifier un document, saisir les actifs de votre débiteur ou expulser votre locataire? Vous êtes au bon endroit.</p>
+      <p class="eyebrow">Grand Montréal depuis 1989</p>
+      <h1>Valade et associés, huissiers de justice</h1>
+      <p class="lead">Signification, exécution de jugements, constats et services connexes menés avec rigueur, clarté et impartialité.</p>
       <div class="actions">
-        <a class="button gold" href="/contact/">Contactez-nous</a>
+        <a class="button gold" href="/contact/">Transmettre un mandat</a>
         <a class="button outline" href="/services-et-tarifs/">Voir nos services</a>
       </div>
       <div class="hero-cardline" aria-label="Statistiques Valade et associés">
@@ -22,25 +23,34 @@ import { assets, businessServices, site, stats } from "../data/site";
   </section>
 
   <section class="section mission-intro">
-    <div class="wrap narrow">
-      <h2>Huissiers de justice du Grand Montréal au service des cabinets d’avocats, des propriétaires et gestionnaires d’immeubles, des particuliers, des notaires, des contentieux et de nombreuses organisations québécoises depuis 1989.</h2>
-      <div class="mission-copy">
-        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, le rôle de <a href="/a-propos/">notre équipe</a> est d’analyser, d’agir et de résoudre. Les mandats entrepris par nos huissiers sont toujours réalisés dans l’intérêt de tous les intervenants au conflit litigieux. L’engagement de Valade et associés, huissiers de justice, se traduit par une union équilibrée entre l’impartialité professionnelle et le dévouement d’une équipe ayant à coeur les divers enjeux de ses clients.</p>
-        <p>Notre mission est d’offrir rien de moins que les meilleurs services d’huissiers tout en respectant à la lettre les cadres législatifs et réglementaires régissant notre profession.</p>
-        <p>Valade et associés est une firme d’huissiers de justice établie dans le Vieux Montréal depuis près de trois décennies. <a href="/services-et-tarifs/">La gamme de services</a> offerts est variée et personnalisée pour tous les types de besoins : signification de procédures, saisie de biens (exécution de jugement), expulsion de locataires ou encore constat d’huissier de justice.</p>
+    <div class="wrap intro-grid">
+      <div>
+        <p class="eyebrow">Notre approche</p>
+        <h2>Analyser, agir, résoudre.</h2>
+      </div>
+      <div class="mission-copy content-panel">
+        <p>Motivés par la satisfaction de contribuer positivement aux enjeux juridiques des individus et des entreprises, nos huissiers réalisent chaque mandat dans l’intérêt de tous les intervenants au conflit litigieux.</p>
+        <p>L’engagement de Valade et associés repose sur une union équilibrée entre l’impartialité professionnelle, le respect des cadres législatifs et le dévouement d’une équipe qui comprend les enjeux de ses clients.</p>
+        <p>Établie dans le Vieux-Montréal, la firme accompagne cabinets d’avocats, propriétaires, particuliers, notaires, contentieux et organisations québécoises dans des mandats variés et personnalisés.</p>
       </div>
     </div>
   </section>
 
   <section class="section alt">
     <div class="wrap">
-      <p class="eyebrow">Services</p>
-      <h2>Signification, exécution, constats et services connexes</h2>
-      <div class="grid four">
+      <div class="section-heading">
+        <p class="eyebrow">Services</p>
+        <h2>Les mandats pris en charge</h2>
+        <p>Une offre claire pour les besoins courants comme pour les dossiers plus sensibles.</p>
+      </div>
+      <div class="service-grid">
         {businessServices.map((service) => (
           <article class="card">
             <h3>{service.title}</h3>
             <p>{service.text}</p>
+            <ul class="feature-list">
+              {service.examples.slice(0, 3).map((example) => <li>{example}</li>)}
+            </ul>
           </article>
         ))}
       </div>
@@ -60,7 +70,7 @@ import { assets, businessServices, site, stats } from "../data/site";
 
   <section class="section platform-section">
     <div class="wrap">
-      <article class="card platform-card">
+      <article class="platform-card">
         <div class="platform-copy">
           <p class="eyebrow">Plateforme JuriWeb</p>
           <h2>Accès aux procès-verbaux et à la facturation</h2>
@@ -90,15 +100,56 @@ import { assets, businessServices, site, stats } from "../data/site";
 </BaseLayout>
 
 <style>
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr);
+    gap: clamp(32px, 7vw, 92px);
+    align-items: start;
+  }
+
+  .mission-intro h2 {
+    font-size: clamp(40px, 7vw, 86px);
+    max-width: 540px;
+  }
+
   .service-support {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 28px;
-    margin-top: 28px;
-    padding: 24px;
+    margin-top: 34px;
+    padding: clamp(22px, 4vw, 34px);
     border-left: 4px solid var(--gold);
     background: #fff;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .section-heading {
+    max-width: 760px;
+    margin-bottom: 30px;
+  }
+
+  .section-heading p:last-child {
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .service-grid .card {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-grid .card h3 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--line);
   }
 
   .service-support h3 {
@@ -129,20 +180,26 @@ import { assets, businessServices, site, stats } from "../data/site";
     align-items: center;
     max-width: none;
     padding: clamp(28px, 4vw, 44px);
-    border-color: #d8dfec;
     background:
-      linear-gradient(135deg, #fff 0%, #f8fbff 100%);
-    box-shadow: 0 18px 44px rgba(18,32,65,.08);
+      linear-gradient(135deg, rgba(23,40,91,.97) 0%, rgba(36,60,123,.9) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
   }
 
   .platform-copy h2 {
+    color: #fff;
     max-width: 720px;
   }
 
   .platform-copy p:not(.eyebrow) {
     max-width: 700px;
-    color: var(--charcoal);
+    color: rgba(255,255,255,.82);
     font-size: 17px;
+  }
+
+  .platform-copy .eyebrow {
+    color: #fff;
   }
 
   .platform-panel {
@@ -151,12 +208,12 @@ import { assets, businessServices, site, stats } from "../data/site";
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 6px;
-    background: var(--line);
+    background: rgba(255,255,255,.18);
   }
 
   .platform-panel div {
     padding: 18px;
-    background: #fff;
+    background: rgba(255,255,255,.96);
   }
 
   .platform-panel strong,
@@ -178,6 +235,11 @@ import { assets, businessServices, site, stats } from "../data/site";
   }
 
   @media (max-width: 760px) {
+    .intro-grid,
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+
     .service-support {
       align-items: flex-start;
       flex-direction: column;

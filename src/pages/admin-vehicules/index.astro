@@ -131,6 +131,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     display: grid;
     gap: 16px;
     margin-top: 30px;
+    padding: clamp(22px, 4vw, 34px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .admin-form label {
@@ -142,8 +147,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .admin-form input {
     width: 100%;
     border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 12px;
+    border-radius: var(--radius);
+    padding: 13px 14px;
     font: inherit;
     font-weight: 400;
   }

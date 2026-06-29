@@ -19,7 +19,7 @@ const hasMultipleImages = vehicleImages.length > 1;
   description={`${vehicleTitle} est listé dans les ventes de véhicules sous contrôle de justice de Valade et associés.`}
   image={vehicle.image}
 >
-  <section class="section alt">
+  <section class="section alt vehicle-detail-hero">
     <div class="wrap narrow">
       <p class="eyebrow">Véhicule</p>
       <h1>{vehicleTitle}</h1>
@@ -66,7 +66,7 @@ const hasMultipleImages = vehicleImages.length > 1;
           </div>
         )}
       </div>
-      <div>
+      <div class="vehicle-info-panel">
         <h2>Informations de vente</h2>
         <dl class="vehicle-details">
           {vehicle.brand && <><dt>Marque</dt><dd>{vehicle.brand}</dd></>}
@@ -115,8 +115,8 @@ const hasMultipleImages = vehicleImages.length > 1;
 <style>
   .vehicle-details {
     display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: 8px 16px;
+    grid-template-columns: minmax(130px, max-content) 1fr;
+    gap: 10px 18px;
     margin: 0 0 22px;
   }
 
@@ -127,6 +127,15 @@ const hasMultipleImages = vehicleImages.length > 1;
 
   .vehicle-details dd {
     margin: 0;
+    color: var(--charcoal);
+  }
+
+  .vehicle-info-panel {
+    padding: clamp(22px, 4vw, 34px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .vehicle-carousel {
@@ -142,8 +151,8 @@ const hasMultipleImages = vehicleImages.length > 1;
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 6px;
-    background: var(--paper);
-    box-shadow: 0 10px 26px rgba(18,32,65,.06);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .carousel-image {

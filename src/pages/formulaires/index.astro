@@ -14,7 +14,7 @@ import { assets, forms, site } from "../../data/site";
     </div>
   </section>
 
-  <section class="section">
+  <section class="section forms-download-section">
     <div class="wrap download-grid">
       {forms.map((form, index) => (
         <a class={`download-card ${index === 1 ? "gold" : "blue"}`} href={form.href} download>
@@ -48,7 +48,9 @@ import { assets, forms, site } from "../../data/site";
 
   .download-card {
     display: grid;
-    min-height: 264px;
+    min-height: 250px;
+    border-radius: var(--radius);
+    overflow: hidden;
     color: #fff;
     text-align: center;
     text-decoration: none;
@@ -62,11 +64,11 @@ import { assets, forms, site } from "../../data/site";
   }
 
   .download-card.blue {
-    background: #385695;
+    background: linear-gradient(135deg, #243c7b 0%, #385695 100%);
   }
 
   .download-card.gold {
-    background: #f2c510;
+    background: linear-gradient(135deg, #c9a44f 0%, #f2c510 100%);
   }
 
   .download-card-main {
@@ -83,6 +85,9 @@ import { assets, forms, site } from "../../data/site";
     width: 82px;
     height: 82px;
     object-fit: contain;
+    padding: 14px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,.16);
   }
 
   .download-card-action {

@@ -20,6 +20,7 @@
 
 export const assets = {
   logoLight: "/wp-content/uploads/2017/04/si-valade-logo-fond5_256x914-copy-14.png",
+  homeHero: "/wp-content/uploads/2017/03/open-space-valade.jpg",
   aboutHero: "/wp-content/uploads/2017/03/salle-reunion-valade.jpg",
   servicesHero: "/wp-content/uploads/2017/04/dossier.jpg",
   formsHero: "/wp-content/uploads/2017/03/documents-valade.jpg",

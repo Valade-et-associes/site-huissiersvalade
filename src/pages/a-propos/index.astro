@@ -15,16 +15,21 @@ import { assets, values } from "../../data/site";
   </section>
 
   <section class="section">
-    <div class="wrap grid four">
-      {values.map((value) => <article class="card"><h3>{value.title}</h3><p>{value.text}</p></article>)}
+    <div class="wrap values-grid">
+      {values.map((value, index) => <article class="card value-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{value.title}</h3><p>{value.text}</p></article>)}
     </div>
   </section>
 
   <section class="section alt">
-    <div class="wrap history-block">
-      <p class="eyebrow">De 1989 à aujourd’hui</p>
-      <p>L’histoire de notre firme remonte à presque trois décennies et est née de l’ambition professionnelle de Luc Valade, huissier de justice. Au fil des années, nous nous sommes forgés une solide réputation auprès de nos clients, tant au niveau de la signification, de l’exécution des jugements que des constats. Au fil des années, nous avons constamment su diversifier et améliorer nos services en fonction des nouvelles réalités de notre profession, des nouveaux enjeux du marché et des besoins de nos clients.</p>
-      <p>Inspirés par les accomplissements du passé, carburant à l’adrénaline du moment présent, notre vision est tournée vers un futur optimiste, caractérisé par la relève et la pérennité.</p>
+    <div class="wrap split history-block">
+      <div>
+        <p class="eyebrow">De 1989 à aujourd’hui</p>
+        <h2>Une firme bâtie pour durer.</h2>
+      </div>
+      <div class="content-panel">
+        <p>L’histoire de notre firme remonte à presque trois décennies et est née de l’ambition professionnelle de Luc Valade, huissier de justice. Au fil des années, nous nous sommes forgés une solide réputation auprès de nos clients, tant au niveau de la signification, de l’exécution des jugements que des constats. Au fil des années, nous avons constamment su diversifier et améliorer nos services en fonction des nouvelles réalités de notre profession, des nouveaux enjeux du marché et des besoins de nos clients.</p>
+        <p>Inspirés par les accomplissements du passé, carburant à l’adrénaline du moment présent, notre vision est tournée vers un futur optimiste, caractérisé par la relève et la pérennité.</p>
+      </div>
     </div>
   </section>
 
@@ -39,7 +44,7 @@ import { assets, values } from "../../data/site";
           <a class="button outline" href="/services-et-tarifs/">Consulter nos services</a>
         </div>
       </div>
-      <img src={assets.map} alt="Carte du territoire desservi par Valade et associés" loading="lazy" />
+      <img class="territory-map" src={assets.map} alt="Carte du territoire desservi par Valade et associés" loading="lazy" />
     </div>
   </section>
 
@@ -66,25 +71,44 @@ import { assets, values } from "../../data/site";
 </BaseLayout>
 
 <style>
-  .history-block {
-    max-width: 1040px;
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
   }
 
-  .history-block .eyebrow {
-    margin-bottom: 38px;
-    text-align: center;
-    color: var(--charcoal);
-    font-size: 18px;
+  .value-card {
+    min-height: 100%;
+    border-top: 4px solid var(--gold);
   }
 
-  .history-block p:not(.eyebrow) {
+  .value-card span {
+    display: block;
+    margin-bottom: 22px;
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .history-block h2 {
+    max-width: 520px;
+  }
+
+  .history-block p {
     color: var(--charcoal);
     font-size: clamp(17px, 1.7vw, 19px);
     line-height: 1.55;
   }
 
-  .history-block p:not(.eyebrow) + p:not(.eyebrow) {
+  .history-block p + p {
     margin-top: 24px;
+  }
+
+  .territory-map {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .leaders-grid {
@@ -96,6 +120,9 @@ import { assets, values } from "../../data/site";
 
   .leader-profile {
     text-align: center;
+    padding: clamp(18px, 3vw, 28px);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .leader-profile img {
@@ -104,6 +131,7 @@ import { assets, values } from "../../data/site";
     object-fit: cover;
     display: block;
     margin-bottom: 28px;
+    border-radius: var(--radius);
   }
 
   .leader-profile h3 {
@@ -130,9 +158,19 @@ import { assets, values } from "../../data/site";
   }
 
   @media (max-width: 720px) {
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+
     .leaders-grid {
       grid-template-columns: 1fr;
       gap: 48px;
+    }
+  }
+
+  @media (min-width: 721px) and (max-width: 1100px) {
+    .values-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

@@ -56,7 +56,7 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
     <div class="wrap">
       <p class="eyebrow">Nos véhicules</p>
       <h2>Véhicules en vente</h2>
-      <div class="grid three">
+      <div class="vehicle-grid">
         {vehicles.map((vehicle) => (
           <article id={vehicle.slug} class="card media-card flush vehicle-offer-card">
             <a href={`/produit/${vehicle.slug}/`}><img src={vehicle.image} alt={formatVehicleTitle(vehicle)} loading="lazy" /></a>
@@ -166,6 +166,12 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
     gap: clamp(24px, 3vw, 34px);
   }
 
+  .vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(22px, 3vw, 34px);
+  }
+
   .vehicle-offer-card {
     transition: box-shadow .2s ease, outline-color .2s ease;
   }
@@ -201,7 +207,7 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   .payment-note {
     border: 1px solid var(--line);
     border-radius: 6px;
-    background: var(--paper);
+    background: #fff;
     padding: 24px;
     box-shadow: 0 12px 24px rgba(21, 38, 80, .06);
   }
@@ -265,6 +271,11 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   .offer-form {
     display: grid;
     gap: 16px;
+    padding: clamp(22px, 4vw, 34px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-soft);
   }
 
   .offer-form label {
@@ -279,7 +290,7 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
     width: 100%;
     border: 1px solid var(--line);
     border-radius: 4px;
-    padding: 12px;
+    padding: 13px 14px;
     background: #fff;
     font: inherit;
     font-weight: 400;
@@ -306,7 +317,8 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   }
 
   @media (max-width: 720px) {
-    .instructions-grid {
+    .instructions-grid,
+    .vehicle-grid {
       grid-template-columns: 1fr;
     }
 
@@ -316,7 +328,8 @@ import { formatVehicleTitle, vehicles } from "../../data/vehicles";
   }
 
   @media (min-width: 721px) and (max-width: 1100px) {
-    .instructions-grid {
+    .instructions-grid,
+    .vehicle-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }

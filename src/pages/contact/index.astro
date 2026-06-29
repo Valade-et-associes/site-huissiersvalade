@@ -14,7 +14,7 @@ import { assets, site } from "../../data/site";
     </div>
   </section>
 
-  <section class="section">
+  <section class="section contact-section">
     <div class="wrap contact-layout">
       <aside class="contact-details">
         <p class="eyebrow">Coordonnées</p>
@@ -73,6 +73,9 @@ import { assets, site } from "../../data/site";
   }
 
   .contact-details {
+    padding: 26px;
+    border-left: 4px solid var(--gold);
+    background: var(--soft-blue);
     color: var(--charcoal);
     font-size: 17px;
     line-height: 1.55;
@@ -84,11 +87,14 @@ import { assets, site } from "../../data/site";
 
   .contact-form {
     display: grid;
+    gap: 0;
     width: 100%;
     max-width: 760px;
-    border: 2px solid #333;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: #fff;
-    box-shadow: 0 14px 30px rgba(21, 38, 80, .08);
+    box-shadow: var(--shadow);
+    overflow: hidden;
   }
 
   .form-row {
@@ -113,23 +119,23 @@ import { assets, site } from "../../data/site";
   .contact-form textarea {
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #333;
+    border-bottom: 1px solid var(--line);
     border-radius: 0;
-    padding: 16px 18px;
+    padding: 17px 18px;
     background: #fff;
     color: var(--ink);
     font: inherit;
-    letter-spacing: 1px;
+    letter-spacing: 0;
   }
 
   .form-row label + label input {
-    border-left: 2px solid #333;
+    border-left: 1px solid var(--line);
   }
 
   .contact-form input::placeholder,
   .contact-form textarea::placeholder {
-    color: #555;
-    letter-spacing: 2px;
+    color: var(--muted);
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -141,14 +147,14 @@ import { assets, site } from "../../data/site";
   .captcha {
     min-height: 64px;
     padding: 12px 18px;
-    border-bottom: 2px solid #333;
+    border-bottom: 1px solid var(--line);
   }
 
   .contact-form button {
-    min-height: 54px;
+    min-height: 58px;
     border: 0;
-    background: #fff;
-    color: var(--ink);
+    background: var(--blue);
+    color: #fff;
     font: inherit;
     font-weight: 800;
     letter-spacing: 2px;
@@ -157,7 +163,7 @@ import { assets, site } from "../../data/site";
   }
 
   .contact-form button:hover {
-    background: var(--blue);
+    background: var(--navy);
     color: #fff;
   }
 
