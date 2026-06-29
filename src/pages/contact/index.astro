@@ -6,7 +6,7 @@ import { assets, site } from "../../data/site";
   title="Contact - Valade et associés"
   description="Coordonnées de Valade et associés, huissiers de justice à Montréal: adresse, téléphone, télécopieur, courriel et heures d'ouverture."
 >
-  <section class="section contact-hero" style={`--contact-hero-image: url('${assets.contactHero}')`}>
+  <section class="section page-hero" style={`--page-hero-image: url('${assets.contactHero}')`}>
     <div class="wrap narrow">
       <p class="eyebrow">Contact</p>
       <h1>Pour nous joindre</h1>
@@ -64,19 +64,6 @@ import { assets, site } from "../../data/site";
 </BaseLayout>
 
 <style>
-  .contact-hero {
-    min-height: 520px;
-    display: grid;
-    align-items: center;
-    background:
-      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .64) 72%, rgba(245, 247, 250, .34) 100%),
-      var(--contact-hero-image) center / cover no-repeat;
-  }
-
-  .contact-hero .wrap {
-    width: 100%;
-  }
-
   .contact-layout {
     display: grid;
     grid-template-columns: minmax(260px, 340px) minmax(0, 760px);
@@ -189,13 +176,6 @@ import { assets, site } from "../../data/site";
   }
 
   @media (max-width: 720px) {
-    .contact-hero {
-      min-height: 460px;
-      background:
-        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
-        var(--contact-hero-image) center / cover no-repeat;
-    }
-
     .form-row {
       grid-template-columns: 1fr;
     }

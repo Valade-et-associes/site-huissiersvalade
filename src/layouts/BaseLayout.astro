@@ -66,7 +66,9 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
               {item.label}
             </a>
           ))}
-          <a href={site.juriweb}>Juriweb</a>
+          <a class="platform-link" href={site.juriweb} target="_blank" rel="noopener noreferrer" aria-label="Ouvrir la plateforme Juriweb dans un nouvel onglet">
+            Juriweb
+          </a>
         </nav>
       </div>
     </header>
@@ -129,6 +131,19 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
   .nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 10px; text-decoration: none; color: #30384a; font-size: 13px; font-weight: 700; text-transform: uppercase; border-radius: 4px; }
   .nav a:hover { background: var(--pale-blue); color: var(--blue); }
   .nav a.is-active { background: var(--blue); color: #fff; }
+  .nav a.platform-link {
+    gap: 6px;
+    margin-left: 8px;
+    padding-inline: 14px;
+    border: 1px solid rgba(36, 60, 123, .22);
+    background: #eef3ff;
+    color: var(--blue);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+  }
+  .nav a.platform-link:hover {
+    background: var(--blue);
+    color: #fff;
+  }
 
   .section { padding: clamp(54px, 8vw, 94px) clamp(18px, 4vw, 56px); }
   .section.alt { background: var(--paper); }
@@ -175,6 +190,23 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
   .hero-cardline strong { display: block; font-size: 38px; line-height: 1; color: #fff; }
   .hero-cardline span { color: rgba(255,255,255,.82); text-transform: uppercase; font-size: 12px; font-weight: 700; }
 
+  .page-hero {
+    min-height: 520px;
+    display: grid;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .64) 72%, rgba(245, 247, 250, .34) 100%),
+      var(--page-hero-image) center / cover no-repeat;
+  }
+
+  .page-hero .wrap {
+    width: 100%;
+  }
+
+  .page-hero .lead {
+    max-width: 760px;
+  }
+
   .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
   .button { display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 12px 18px; border-radius: 4px; border: 1px solid transparent; background: var(--blue); color: #fff; font-weight: 800; text-decoration: none; text-transform: uppercase; font-size: 13px; }
   .button.gold { background: var(--gold); color: #14110a; }
@@ -212,5 +244,14 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
     .nav { justify-content: flex-start; }
     .grid.two, .grid.three, .grid.four, .split, .footer-inner, .hero-cardline { grid-template-columns: 1fr; }
     .hero { min-height: 620px; }
+  }
+
+  @media (max-width: 720px) {
+    .page-hero {
+      min-height: 460px;
+      background:
+        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
+        var(--page-hero-image) center / cover no-repeat;
+    }
   }
 </style>

@@ -6,7 +6,7 @@ import { assets, forms, site } from "../../data/site";
   title="Formulaires - Valade et associés"
   description="Téléchargez les bordereaux d’instructions de Valade et associés pour l’exécution de jugement et la saisie avant jugement."
 >
-  <section class="section forms-hero" style={`--forms-hero-image: url('${assets.formsHero}')`}>
+  <section class="section page-hero" style={`--page-hero-image: url('${assets.formsHero}')`}>
     <div class="wrap narrow">
       <p class="eyebrow">Formulaires</p>
       <h1>Bordereaux d’instructions</h1>
@@ -39,23 +39,6 @@ import { assets, forms, site } from "../../data/site";
 </BaseLayout>
 
 <style>
-  .forms-hero {
-    min-height: 520px;
-    display: grid;
-    align-items: center;
-    background:
-      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .64) 72%, rgba(245, 247, 250, .34) 100%),
-      var(--forms-hero-image) center / cover no-repeat;
-  }
-
-  .forms-hero .wrap {
-    width: 100%;
-  }
-
-  .forms-hero .lead {
-    max-width: 760px;
-  }
-
   .download-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(260px, 1fr));
@@ -126,13 +109,6 @@ import { assets, forms, site } from "../../data/site";
   }
 
   @media (max-width: 720px) {
-    .forms-hero {
-      min-height: 460px;
-      background:
-        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
-        var(--forms-hero-image) center / cover no-repeat;
-    }
-
     .download-grid {
       grid-template-columns: 1fr;
     }

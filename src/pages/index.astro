@@ -44,27 +44,151 @@ import { assets, businessServices, posts, site, stats } from "../data/site";
           </article>
         ))}
       </div>
-      <div class="actions"><a class="button" href="/services-et-tarifs/">Nos services</a></div>
+      <div class="service-support">
+        <div>
+          <p class="eyebrow">Communication et vulgarisation</p>
+          <h3>Des réponses claires</h3>
+          <p>Si vous avez des questions sur nos services ou notre tarification, notre équipe peut vous guider et vous répondre simplement.</p>
+        </div>
+        <div class="actions">
+          <a class="button" href="/services-et-tarifs/">Nos services</a>
+          <a class="button outline" href="/contact/">Nous contacter</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap grid two">
-      <article class="card">
-        <p class="eyebrow">Plateforme JuriWeb</p>
-        <h2>Accès aux procès-verbaux et à la facturation</h2>
-        <p>Accédez immédiatement à tous les procès-verbaux de nos huissiers et à vos dossiers de facturation, en toute sécurité et en tout temps.</p>
-        <div class="actions">
-          <a class="button" href={site.juriweb}>Se connecter</a>
-          <a class="button outline" href="/contact/">Je veux m’inscrire</a>
+  <section class="section platform-section">
+    <div class="wrap">
+      <article class="card platform-card">
+        <div class="platform-copy">
+          <p class="eyebrow">Plateforme JuriWeb</p>
+          <h2>Accès aux procès-verbaux et à la facturation</h2>
+          <p>Accédez immédiatement à tous les procès-verbaux de nos huissiers et à vos dossiers de facturation, en toute sécurité et en tout temps.</p>
+          <div class="actions">
+            <a class="button" href={site.juriweb}>Se connecter</a>
+            <a class="button outline" href="/contact/">Je veux m’inscrire</a>
+          </div>
         </div>
-      </article>
-      <article class="card">
-        <p class="eyebrow">Communication et vulgarisation</p>
-        <h2>Des réponses claires</h2>
-        <p>Dotés d’une riche expérience et d’une réputation enviable, les huissiers de justice de Valade et associés sont en mesure de prodiguer conseils et recommandations à l’égard de vos questionnements procéduraux.</p>
-        <p>Si vous êtes confus par rapport à nos services ou à notre tarification, il nous fera plaisir de répondre à vos questions.</p>
+        <div class="platform-panel" aria-label="Avantages de la plateforme JuriWeb">
+          <div>
+            <strong>Dossiers centralisés</strong>
+            <span>Suivi des procédures et documents au même endroit.</span>
+          </div>
+          <div>
+            <strong>Accès sécurisé</strong>
+            <span>Consultation réservée aux clients autorisés.</span>
+          </div>
+          <div>
+            <strong>Facturation disponible</strong>
+            <span>Vos informations de facturation accessibles en ligne.</span>
+          </div>
+        </div>
       </article>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .service-support {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    margin-top: 28px;
+    padding: 24px;
+    border-left: 4px solid var(--gold);
+    background: #fff;
+  }
+
+  .service-support h3 {
+    margin-bottom: 10px;
+    color: var(--navy);
+    font-size: clamp(24px, 3vw, 34px);
+  }
+
+  .service-support p:last-child {
+    margin-bottom: 0;
+    max-width: 720px;
+  }
+
+  .service-support .actions {
+    flex: 0 0 auto;
+    margin-top: 0;
+  }
+
+  .platform-section {
+    background:
+      linear-gradient(180deg, #fff 0%, #f7f9fc 100%);
+  }
+
+  .platform-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    max-width: none;
+    padding: clamp(28px, 4vw, 44px);
+    border-color: #d8dfec;
+    background:
+      linear-gradient(135deg, #fff 0%, #f8fbff 100%);
+    box-shadow: 0 18px 44px rgba(18,32,65,.08);
+  }
+
+  .platform-copy h2 {
+    max-width: 720px;
+  }
+
+  .platform-copy p:not(.eyebrow) {
+    max-width: 700px;
+    color: var(--charcoal);
+    font-size: 17px;
+  }
+
+  .platform-panel {
+    display: grid;
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--line);
+  }
+
+  .platform-panel div {
+    padding: 18px;
+    background: #fff;
+  }
+
+  .platform-panel strong,
+  .platform-panel span {
+    display: block;
+  }
+
+  .platform-panel strong {
+    margin-bottom: 5px;
+    color: var(--navy);
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  .platform-panel span {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 760px) {
+    .service-support {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .service-support .actions {
+      width: 100%;
+    }
+
+    .platform-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

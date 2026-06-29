@@ -226,8 +226,9 @@ const personalServices = [
   title="Services et tarifs - Valade et associés"
   description="Services d'huissiers pour entreprises et particuliers: signification, exécution de jugement, constats, services connexes et tarification."
 >
-  <section class="section services-hero" style={`--services-hero-image: url('${assets.servicesHero}')`}>
+  <section class="section page-hero" style={`--page-hero-image: url('${assets.servicesHero}')`}>
     <div class="wrap narrow">
+      <p class="eyebrow">Services et tarifs</p>
       <h1>Des services d'huissiers pour tous</h1>
       <p class="lead">Chez Valade et associés, huissiers de justice, nous vous proposons une gamme complète de services pour tous les types de besoins.</p>
       <div class="service-jumps" aria-label="Accès rapide aux domaines de services">
@@ -304,23 +305,6 @@ const personalServices = [
 </BaseLayout>
 
 <style>
-  .services-hero {
-    min-height: 520px;
-    display: grid;
-    align-items: center;
-    background:
-      linear-gradient(90deg, rgba(245, 247, 250, .96) 0%, rgba(245, 247, 250, .9) 42%, rgba(245, 247, 250, .64) 72%, rgba(245, 247, 250, .34) 100%),
-      var(--services-hero-image) center / cover no-repeat;
-  }
-
-  .services-hero .wrap {
-    width: 100%;
-  }
-
-  .services-hero .lead {
-    max-width: 760px;
-  }
-
   .service-jumps {
     display: flex;
     justify-content: center;
@@ -519,13 +503,6 @@ const personalServices = [
   }
 
   @media (max-width: 680px) {
-    .services-hero {
-      min-height: 460px;
-      background:
-        linear-gradient(rgba(245, 247, 250, .94), rgba(245, 247, 250, .88)),
-        var(--services-hero-image) center / cover no-repeat;
-    }
-
     .services-board {
       grid-template-columns: 1fr;
       padding: 22px;

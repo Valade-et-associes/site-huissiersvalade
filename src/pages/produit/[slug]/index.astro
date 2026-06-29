@@ -12,6 +12,7 @@ export function getStaticPaths() {
 const { vehicle } = Astro.props;
 const vehicleTitle = formatVehicleTitle(vehicle);
 const vehicleImages = vehicle.images?.length ? vehicle.images : [vehicle.image];
+const hasMultipleImages = vehicleImages.length > 1;
 ---
 <BaseLayout
   title={`${vehicleTitle} - Valade et associés`}
@@ -24,17 +25,46 @@ const vehicleImages = vehicle.images?.length ? vehicle.images : [vehicle.image];
       <h1>{vehicleTitle}</h1>
       <p class="lead">Vente sous contrôle de justice de gré à gré. Les informations de participation et de paiement sont celles de la page ventes sabots.</p>
       <div class="actions">
-        <a class="button" href="/vente-de-vehicules-operation-sabot-de-denver/">Retour aux véhicules</a>
-        <a class="button gold" href="/vente-de-vehicules-operation-sabot-de-denver/#offre">Faire une offre</a>
+        <a class="button" href={`/vente-de-vehicules-operation-sabot-de-denver/#${vehicle.slug}`}>Retour aux véhicules</a>
+        <a class="button gold" href={`/vente-de-vehicules-operation-sabot-de-denver/?vehicle=${vehicle.slug}#formulaire-offre`}>Faire une offre</a>
       </div>
     </div>
   </section>
   <section class="section">
     <div class="wrap split">
-      <div class="vehicle-gallery">
-        {vehicleImages.map((image, index) => (
-          <img class="card" src={image} alt={`${vehicleTitle} - photo ${index + 1}`} loading={index === 0 ? "eager" : "lazy"} />
-        ))}
+      <div class="vehicle-carousel" data-vehicle-carousel>
+        <div class="carousel-stage">
+          {vehicleImages.map((image, index) => (
+            <img
+              class:list={{ "carousel-image": true, "is-active": index === 0 }}
+              src={image}
+              alt={`${vehicleTitle} - photo ${index + 1}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              data-carousel-image
+            />
+          ))}
+          {hasMultipleImages && (
+            <div class="carousel-controls" aria-label="Navigation des photos">
+              <button class="carousel-button" type="button" aria-label="Photo précédente" data-carousel-prev><span aria-hidden="true">&lsaquo;</span></button>
+              <button class="carousel-button" type="button" aria-label="Photo suivante" data-carousel-next><span aria-hidden="true">&rsaquo;</span></button>
+            </div>
+          )}
+        </div>
+        {hasMultipleImages && (
+          <div class="carousel-thumbs" aria-label="Choisir une photo">
+            {vehicleImages.map((image, index) => (
+              <button
+                class:list={{ "carousel-thumb": true, "is-active": index === 0 }}
+                type="button"
+                aria-label={`Afficher la photo ${index + 1}`}
+                aria-current={index === 0 ? "true" : undefined}
+                data-carousel-thumb
+              >
+                <img src={image} alt="" loading="lazy" />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       <div>
         <h2>Informations de vente</h2>
@@ -54,6 +84,34 @@ const vehicleImages = vehicle.images?.length ? vehicle.images : [vehicle.image];
   </section>
 </BaseLayout>
 
+<script>
+  document.querySelectorAll<HTMLElement>("[data-vehicle-carousel]").forEach((carousel) => {
+    const images = Array.from(carousel.querySelectorAll<HTMLImageElement>("[data-carousel-image]"));
+    const thumbs = Array.from(carousel.querySelectorAll<HTMLButtonElement>("[data-carousel-thumb]"));
+    const prev = carousel.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+    const next = carousel.querySelector<HTMLButtonElement>("[data-carousel-next]");
+    let activeIndex = 0;
+
+    function showImage(index: number) {
+      activeIndex = (index + images.length) % images.length;
+
+      images.forEach((image, imageIndex) => {
+        image.classList.toggle("is-active", imageIndex === activeIndex);
+      });
+
+      thumbs.forEach((thumb, thumbIndex) => {
+        const isActive = thumbIndex === activeIndex;
+        thumb.classList.toggle("is-active", isActive);
+        thumb.setAttribute("aria-current", isActive ? "true" : "false");
+      });
+    }
+
+    prev?.addEventListener("click", () => showImage(activeIndex - 1));
+    next?.addEventListener("click", () => showImage(activeIndex + 1));
+    thumbs.forEach((thumb, index) => thumb.addEventListener("click", () => showImage(index)));
+  });
+</script>
+
 <style>
   .vehicle-details {
     display: grid;
@@ -71,14 +129,97 @@ const vehicleImages = vehicle.images?.length ? vehicle.images : [vehicle.image];
     margin: 0;
   }
 
-  .vehicle-gallery {
+  .vehicle-carousel {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 14px;
     align-self: start;
   }
 
-  .vehicle-gallery img {
+  .carousel-stage {
+    position: relative;
+    display: grid;
+    min-height: 360px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--paper);
+    box-shadow: 0 10px 26px rgba(18,32,65,.06);
+  }
+
+  .carousel-image {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    max-height: 640px;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+  }
+
+  .carousel-image.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .carousel-controls {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    pointer-events: none;
+  }
+
+  .carousel-button {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(23, 40, 91, .86);
+    color: #fff;
+    font-size: 34px;
+    line-height: 0;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .carousel-button span {
+    display: block;
+    line-height: 1;
+    transform: translateY(-2px);
+  }
+
+  .carousel-button:hover {
+    background: var(--blue);
+  }
+
+  .carousel-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .carousel-thumb {
+    min-width: 0;
+    padding: 0;
+    border: 3px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .carousel-thumb.is-active {
+    border-color: var(--gold);
+  }
+
+  .carousel-thumb img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
@@ -90,8 +231,18 @@ const vehicleImages = vehicle.images?.length ? vehicle.images : [vehicle.image];
       gap: 2px;
     }
 
-    .vehicle-gallery {
-      grid-template-columns: 1fr;
+    .carousel-stage {
+      min-height: 260px;
+    }
+
+    .carousel-controls {
+      padding: 10px;
+    }
+
+    .carousel-button {
+      width: 38px;
+      height: 38px;
+      font-size: 30px;
     }
   }
 </style>
