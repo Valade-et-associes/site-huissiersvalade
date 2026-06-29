@@ -210,7 +210,6 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
   .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
   .button { display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 12px 18px; border-radius: 4px; border: 1px solid transparent; background: var(--blue); color: #fff; font-weight: 800; text-decoration: none; text-transform: uppercase; font-size: 13px; }
   .button.gold { background: var(--gold); color: #14110a; }
-  .button.light { background: #fff; color: var(--blue); }
   .button.outline { background: transparent; color: inherit; border-color: currentColor; }
 
   .grid { display: grid; gap: 22px; }
@@ -220,14 +219,10 @@ const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${A
   .split { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 74px); align-items: start; }
   .card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 24px; box-shadow: 0 10px 26px rgba(18,32,65,.06); }
   .card.flush { padding: 0; overflow: hidden; }
-  .list { margin: 0; padding-left: 20px; }
-  .list li { margin: 7px 0; }
   .notice { border-left: 4px solid var(--gold); background: #fff8e5; padding: 17px 18px; }
   .badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 9px; border-radius: 4px; background: var(--pale-blue); color: var(--blue); font-weight: 800; font-size: 12px; text-transform: uppercase; }
   .media-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
   .media-card .card-body { padding: 22px; }
-  .disabled-form { opacity: .72; }
-  .disabled-form input, .disabled-form textarea, .disabled-form button { pointer-events: none; }
 
   .site-footer { background: #121a2c; color: rgba(255,255,255,.78); padding: 48px clamp(18px,4vw,56px) 26px; }
   .footer-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr .8fr; gap: 34px; }

@@ -19,8 +19,6 @@
 };
 
 export const assets = {
-  logo: "/wp-content/uploads/2017/04/si-valade-logo2-442x100_256x914-copy-4.png",
-  logoMark: "/wp-content/uploads/2017/04/si-valade-logo2_256x914-copy-12.png",
   logoLight: "/wp-content/uploads/2017/04/si-valade-logo-fond5_256x914-copy-14.png",
   aboutHero: "/wp-content/uploads/2017/03/salle-reunion-valade.jpg",
   servicesHero: "/wp-content/uploads/2017/04/dossier.jpg",
